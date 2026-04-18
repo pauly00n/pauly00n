@@ -14,7 +14,7 @@ export function useIntersectionOnce(ref: Ref, threshold = 0.05): boolean {
     )
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [ref, threshold])
 
   return visible
 }

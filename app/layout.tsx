@@ -4,8 +4,8 @@ import './globals.css'
 import { Nav } from '@/components/nav';
 import { HeroBackground } from '@/components/hero-background';
 
-const _inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const _playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair" });
+const _inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const _playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
 
 export const viewport: Viewport = {
   themeColor: '#e0f1f9',
@@ -80,7 +80,7 @@ export default function RootLayout({
                 />
             </head>
       <body className={`${_inter.variable} ${_playfair.variable} font-sans antialiased`} style={{ background: 'transparent' }}>
-        <div style={{ position: 'fixed', top: '-300px', bottom: '-300px', left: 0, right: 0, zIndex: -10, willChange: 'transform' }}>
+        <div style={{ position: 'fixed', top: '-300px', bottom: '-300px', left: 0, right: 0, zIndex: -10, willChange: 'auto' }}>
           <HeroBackground />
         </div>
         <Nav />

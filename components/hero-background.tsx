@@ -19,7 +19,6 @@ export function HeroBackground() {
           backgroundSize: "700px 700px",
           opacity: 0.10,
           mixBlendMode: "normal",
-          willChange: "opacity",
         }}
       />
 
