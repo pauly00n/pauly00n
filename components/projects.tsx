@@ -6,6 +6,7 @@ import { ArrowUpRight, Github } from "lucide-react"
 import { SectionTopGlow } from "@/components/ui/section-top-glow"
 import { useIntersectionOnce } from "@/hooks/use-intersection-once"
 import { useMobileScrollLine } from "@/hooks/use-mobile-scroll-line"
+import { BRAND_BLUE } from "@/lib/utils"
 
 const projects = [
   {
@@ -68,6 +69,14 @@ const projects = [
 ]
 
 const NUM_PROJECTS = projects.length
+
+const CARD_BG: React.CSSProperties = {
+  background: "linear-gradient(160deg, #f5f9fd 0%, #e8f3fb 25%, #d6eaf8 50%, #c4e0f5 100%)",
+}
+
+const OVERLAY_BG: React.CSSProperties = {
+  background: "linear-gradient(to bottom, transparent 25%, rgba(1, 60, 110, 0.55) 50%, rgba(0, 40, 85, 0.92) 100%)",
+}
 const NUM_ROWS = Math.ceil(NUM_PROJECTS / 2)
 
 // Compute animation name + base delay for each card index (module-level, stable)
@@ -189,7 +198,7 @@ function fadeStyle(delayMs: number): React.CSSProperties {
               Here&apos;s what I&apos;ve
             </span>
             <br />
-            <span className="italic" style={{ color: "#017bb9", ...fadeStyle(500) }}>
+            <span className="italic" style={{ color: BRAND_BLUE, ...fadeStyle(500) }}>
               worked on.
             </span>
           </h2>
@@ -215,10 +224,7 @@ function fadeStyle(delayMs: number): React.CSSProperties {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="relative block aspect-[4/3] overflow-hidden rounded-2xl"
-                  style={{
-                    background:
-                      "linear-gradient(160deg, #f5f9fd 0%, #e8f3fb 25%, #d6eaf8 50%, #c4e0f5 100%)",
-                  }}
+                  style={CARD_BG}
                 >
                   <Image
                     src={project.image}
@@ -232,11 +238,7 @@ function fadeStyle(delayMs: number): React.CSSProperties {
                   {/* Overlay */}
                   <div
                     className="absolute inset-0 opacity-0 md:group-hover:opacity-100 transition-opacity duration-500 ease-out"
-                    style={{
-                      background:
-                        "linear-gradient(to bottom, transparent 25%, rgba(1, 60, 110, 0.55) 50%, rgba(0, 40, 85, 0.92) 100%)",
-                      ...(isCardActive ? { opacity: 1 } : undefined),
-                    }}
+                    style={isCardActive ? { ...OVERLAY_BG, opacity: 1 } : OVERLAY_BG}
                   />
 
                   {/* Overlay content */}

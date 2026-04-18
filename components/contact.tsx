@@ -1,5 +1,6 @@
 import { Github, Linkedin, Mail, Twitter } from "lucide-react"
 import { SectionLabel } from "@/components/ui/section-label"
+import { BRAND_BLUE } from "@/lib/utils"
 
 const socials = [
   { label: "GitHub", href: "#", icon: Github },
@@ -20,7 +21,7 @@ export function Contact() {
             <h2 className="font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
               {"Let\u2019s work"}
               <br />
-              <span className="italic" style={{ color: "#017bb9" }}>
+              <span className="italic" style={{ color: BRAND_BLUE }}>
                 together.
               </span>
             </h2>

@@ -4,6 +4,7 @@ import { Footer } from "@/components/footer"
 import Image from "next/image"
 import { ScrollReset } from "@/components/scroll-reset"
 import TextLink from "@/components/ui/textlink"
+import { BRAND_BLUE } from "@/lib/utils"
 
 const fadeUp = (delay: number): React.CSSProperties => ({
   animation: `fadeUp 550ms ease-out ${delay}ms both`,
@@ -26,7 +27,7 @@ export default function AboutPage() {
                   <h2 className="text-balance font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl pb-6">
                     <span style={fadeUp(0)}>A bit</span>
                     <br />
-                    <span className="italic" style={{ color: "#017bb9", ...fadeUp(300) }}>
+                    <span className="italic" style={{ color: BRAND_BLUE, ...fadeUp(300) }}>
                       about me.
                     </span>
                   </h2>

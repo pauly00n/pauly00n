@@ -6,6 +6,7 @@ import { SectionLabel } from "@/components/ui/section-label"
 import { useIntersectionOnce, useIntersectionsOnce } from "@/hooks/use-intersection-once"
 import { useMobileScrollLine } from "@/hooks/use-mobile-scroll-line"
 import GlassButton2 from "@/components/ui/glassbutton2"
+import { BRAND_BLUE } from "@/lib/utils"
 import { FaPython, FaReact, FaAws } from "react-icons/fa"
 import {
   SiGit, SiLatex, SiTypescript, SiJavascript, SiPandas,
@@ -63,6 +64,24 @@ const columns = [
 // animation name per column index: left bounces from left, middle from bottom, right from right
 const COL_ANIM = ["skillsFromLeft", "skillsFromBottom", "skillsFromRight"]
 
+const SKILL_CARD_WRAPPER: React.CSSProperties = {
+  '--gb2-radius': '1rem',
+  '--gb2-sheen-tx': '17%',
+  '--gb2-sheen-ty': '17%',
+  '--gb2-sheen-hover-tx': '8%',
+  '--gb2-sheen-hover-ty': '8%',
+  '--gb2-sheen-hover-angle': '-35deg',
+  height: '100%',
+} as React.CSSProperties
+
+const SKILL_CARD_SPAN: React.CSSProperties = {
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-start',
+  padding: '1.5rem 1.75rem',
+  letterSpacing: 'normal',
+}
+
 export function Skills() {
   const sectionRef = useRef<HTMLElement>(null)
   const colRef0 = useRef<HTMLDivElement>(null)
@@ -83,15 +102,9 @@ export function Skills() {
   const colVisible = useIntersectionsOnce(colRefs)
   const activeColIdx = useMobileScrollLine(colRefs, isMobile)
 
-  function headingFade(): React.CSSProperties {
+  function headingFade(delay = 0): React.CSSProperties {
     return headingVisible
-      ? { animation: `skillsFromBottom 600ms ease-out 0ms both` }
-      : { opacity: 0 }
-  }
-
-  function headingFade2(): React.CSSProperties {
-    return headingVisible
-      ? { animation: `skillsFromBottom 600ms ease-out 300ms both` }
+      ? { animation: `skillsFromBottom 600ms ease-out ${delay}ms both` }
       : { opacity: 0 }
   }
 
@@ -107,9 +120,9 @@ export function Skills() {
       <div className="mx-auto max-w-5xl px-6 py-24 lg:px-8 lg:py-32">
 
         <h2 className="mb-16 font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-          <span style={headingFade()}>Skills: Things I</span>
+          <span style={headingFade(0)}>Skills: Things I</span>
           <br />
-          <span className="italic" style={{ color: "#017bb9", ...headingFade2() }}>
+          <span className="italic" style={{ color: BRAND_BLUE, ...headingFade(300) }}>
             Build With.
           </span>
         </h2>
@@ -127,14 +140,8 @@ export function Skills() {
                 fill
                 forceHover={isMobile && activeColIdx === ci}
                 disableHover={isMobile}
-                wrapperStyle={{ '--gb2-radius': '1rem', '--gb2-sheen-tx': '17%', '--gb2-sheen-ty': '17%', '--gb2-sheen-hover-tx': '8%', '--gb2-sheen-hover-ty': '8%', '--gb2-sheen-hover-angle': '-35deg', height: '100%' } as React.CSSProperties}
-                spanStyle={{
-                  flexDirection: 'column',
-                  alignItems: 'flex-start',
-                  justifyContent: 'flex-start',
-                  padding: '1.5rem 1.75rem',
-                  letterSpacing: 'normal',
-                }}
+                wrapperStyle={SKILL_CARD_WRAPPER}
+                spanStyle={SKILL_CARD_SPAN}
               >
                 <h3 className="mb-5 text-sm font-medium uppercase tracking-widest text-foreground/90">
                   {col.heading}
