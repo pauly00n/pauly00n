@@ -10,6 +10,14 @@ import { BRAND_BLUE } from "@/lib/utils"
 
 const projects = [
   {
+    title: "LemonLime AI Website",
+    description:
+      "Frontend landing page, hero, mockups, and subpages.",
+    tags: ["Next.js", "Typescript", "Supabase"],
+    liveUrl: "https:/lemonlime.ai",
+    image: "/lemonlimeai.png",
+  },
+  {
     title: "AutoML-Cardiac",
     description:
       "Autonomous ML experiment framework for cardiac MRI classification on the ACDC dataset.",
@@ -22,7 +30,7 @@ const projects = [
     description:
       "Full stack web app solving radiologists' pain points with AI workflows, integrating multiple into one place.",
     tags: ["Next.js", "TypeScript", "Supabase"],
-    liveUrl: "https://paulyoon.xyz/stella",
+    liveUrl: "https://stella-ashy.vercel.app",
     githubUrl: "https://github.com/pauly00n/personal-website",
     image: "/stella1.png",
   },
