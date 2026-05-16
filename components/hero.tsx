@@ -45,7 +45,7 @@ export function Hero() {
       {/* Scroll indicator pinned to bottom */}
       <div style={fadeUp(760)} className="shrink-0 pb-16 sm:pb-8 flex justify-center">
         <a
-          href="#projects"
+          href="#work"
           className="flex flex-col items-center gap-2 text-muted-foreground/90 transition-colors hover:text-muted-foreground hover:scale-[1.05] transition duration-120"
           aria-label="Scroll down"
         >
