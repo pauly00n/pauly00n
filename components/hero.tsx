@@ -24,7 +24,7 @@ export function Hero() {
           </h1>
 
           {/* Role */}
-          <p style={fadeUp(400)} className="mt-4 text-lg text-muted-foreground font-medium sm:text-xl">
+          <p style={fadeUp(400)} className="mt-4 font-mono text-[1.5rem] text-muted-foreground font-[450]">
             Software Engineer & Researcher
           </p>
 
