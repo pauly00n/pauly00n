@@ -117,7 +117,7 @@ export function Skills() {
     <section ref={sectionRef} id="skills" className="relative border-t border-border/50">
       <SectionTopGlow />
 
-      <div className="mx-auto max-w-5xl px-6 py-24 lg:px-8 lg:py-32">
+      <div className="mx-auto max-w-5xl px-6 py-24 lg:px-8 lg:py-24">
 
         <h2 className="mb-16 font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
           <span style={headingFade(0)}>Skills: Things I</span>
