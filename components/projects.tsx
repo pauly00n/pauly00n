@@ -96,16 +96,16 @@ const CARD_ANIM = projects.map((_, idx) => {
 
   if (row === 0) {
     return col === 0
-      ? { name: "projectsFadeTopLeft",  delay: 700 }
-      : { name: "projectsFadeTopRight", delay: 900 }
+      ? { name: "projectsFadeTopLeft",  delay: 560 }
+      : { name: "projectsFadeTopRight", delay: 720 }
   }
 
   if (isOnlyInRow) {
     // Solo card in last row (desktop only) — fade in from bottom
-    return { name: "projectsFadeIn", delay: 200 }
+    return { name: "projectsFadeIn", delay: 160 }
   }
 
-  const delay = row === 1 ? 500 : 200
+  const delay = row === 1 ? 400 : 160
   return col === 0
     ? { name: "projectsFadeLeft",  delay }
     : { name: "projectsFadeRight", delay }
@@ -163,7 +163,7 @@ export function Projects() {
   )
 function fadeStyle(delayMs: number): React.CSSProperties {
     return headingVisible
-      ? { animation: `projectsFadeIn 500ms ease-out ${delayMs}ms both` }
+      ? { animation: `projectsFadeIn 400ms ease-out ${delayMs}ms both` }
       : { opacity: 0 }
   }
 
@@ -171,7 +171,7 @@ function fadeStyle(delayMs: number): React.CSSProperties {
     if (isMobile) {
       // Mobile: single column — each card fades in independently (unchanged)
       if (!cardVisible[idx]) return { opacity: 0 }
-      return { animation: `projectsFadeLeft 550ms ease-out 0ms both` }
+      return { animation: `projectsFadeLeft 440ms ease-out 0ms both` }
     }
 
     // Desktop: pair cards by row — left card (even idx) triggers both
@@ -182,22 +182,22 @@ function fadeStyle(delayMs: number): React.CSSProperties {
     const { name, delay } = CARD_ANIM[idx]
     const myTime = cardTriggeredAt.current[rowTriggerIdx] ?? 0
 
-    // If a previous row fired within 150ms of this one, they were simultaneous —
-    // add 500ms stagger per such row so they cascade rather than all pop at once.
+    // If a previous row fired within 120ms of this one, they were simultaneous —
+    // add 400ms stagger per such row so they cascade rather than all pop at once.
     let stagger = 0
     for (let r = 0; r < row; r++) {
       const t = cardTriggeredAt.current[r * 2]
-      if (t !== null && Math.abs(myTime - t) < 150) stagger += 500
+      if (t !== null && Math.abs(myTime - t) < 120) stagger += 400
     }
 
-    return { animation: `${name} 550ms ease-out ${delay + stagger}ms both` }
+    return { animation: `${name} 440ms ease-out ${delay + stagger}ms both` }
   }
 
   return (
     <section ref={sectionRef} id="projects" className="relative border-t border-border/50 min-h-screen" >
       <SectionTopGlow />
 
-      <div className="mx-auto max-w-6xl px-6 py-24 lg:px-8 lg:py-20">
+      <div className="mx-auto max-w-6xl px-6 py-24 lg:px-8 lg:py-24">
 
         {/* Heading */}
         <div className="mb-10">
