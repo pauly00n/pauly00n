@@ -50,7 +50,7 @@ const experiences: Experience[] = [
   {
     startLabel: "Jul 2024",
     endLabel: "Sept 2024",
-    title: "Software Engineering Intern",
+    title: "Software Engineer Intern",
     company: "Sundial",
     url: "https://sundial.ai",
     description:
@@ -89,7 +89,7 @@ export function Work() {
 
   function headingFade(delay = 0): React.CSSProperties {
     return headingVisible
-      ? { animation: `skillsFromBottom 600ms ease-out ${delay}ms both` }
+      ? { animation: `skillsFromBottom 550ms ease-out ${delay}ms both` }
       : { opacity: 0 }
   }
 
@@ -97,29 +97,35 @@ export function Work() {
     <section ref={sectionRef} id="work" className="relative border-t border-border/50">
       <SectionTopGlow />
 
-      <div className="mx-auto max-w-6xl px-6 py-24 lg:px-8 lg:py-32">
+      <div className="mx-auto max-w-6xl px-6 py-24 lg:px-8 lg:py-24">
 
         {/* Heading */}
         <h2 className="mb-16 sm:mb-20 font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-          <span style={headingFade(0)}>Where I&apos;ve</span>
+          <span style={headingFade(150)}>Where I&apos;ve</span>
           <br />
-          <span className="italic" style={{ color: BRAND_BLUE, ...headingFade(300) }}>
+          <span className="italic" style={{ color: BRAND_BLUE, ...headingFade(400) }}>
             been working.
           </span>
         </h2>
 
         {/* Timeline */}
-        <div className="relative pl-20 sm:pl-32 md:pl-40">
-          {/* Vertical rule — sits behind the dots */}
+        <div className="relative sm:pl-32 md:pl-40">
+          {/* Vertical rule — grows downward as rows reveal (desktop only) */}
           <div
             aria-hidden="true"
-            className="absolute top-2 bottom-2 left-16 sm:left-28 md:left-36 w-px bg-border/70"
+            className="hidden sm:block absolute top-2 bottom-2 sm:left-28 md:left-36 w-px bg-border/70 origin-top"
+            style={{
+              transform: headingVisible ? "scaleY(1)" : "scaleY(0)",
+              transition: headingVisible
+                ? `transform ${300 + experiences.length * 70 + 200}ms cubic-bezier(0.65, 0, 0.35, 1) 250ms`
+                : "none",
+            }}
           />
 
           {experiences.map((exp, idx) => {
-            const visible = rowVisible[idx]
+            const visible = rowVisible[idx] && headingVisible
             const rowStyle: React.CSSProperties = visible
-              ? { animation: `workSlideUp 550ms ease-out 0ms both` }
+              ? { animation: `workSlideUp 450ms ease-out ${300 + idx * 70}ms both` }
               : { opacity: 0 }
 
             return (
@@ -129,8 +135,8 @@ export function Work() {
                 className="group/row relative pb-14 sm:pb-8 last:pb-0"
                 style={rowStyle}
               >
-                {/* Date column — absolutely positioned to the left of the rail */}
-                <div className="absolute top-0 -left-20 sm:-left-32 md:-left-40 w-16 sm:w-24 md:w-32 pr-4 text-right">
+                {/* Date column — sm+: left gutter; mobile: handled inline below */}
+                <div className="hidden sm:block absolute top-0 sm:-left-32 md:-left-40 sm:w-24 md:w-32 pr-4 text-right">
                   <div
                     className="font-mono font-[600] text-[12px] tabular-nums tracking-[0.13em] text-foreground/75"
                   >
@@ -148,18 +154,18 @@ export function Work() {
                   </div>
                   {exp.incoming && (
                     <div
-                      className="mt-2 font-[600] font-mono text-[12px] uppercase tracking-[0.13em]"
+                      className="mt-2 font-[600] font-mono text-[12px] tracking-[0.13em]"
                       style={{ color: BRAND_BLUE }}
                     >
-                      Incoming
+                      ^INCOMING
                     </div>
                   )}
                 </div>
 
-                {/* Timeline dot — sits on the rail */}
+                {/* Timeline dot — sits on the rail (desktop only) */}
                 <span
                   aria-hidden="true"
-                  className="absolute top-[10px] -left-4 flex h-3 w-3 -translate-x-1/2 items-center justify-center"
+                  className="hidden sm:flex absolute top-[10px] -left-4 h-3 w-3 -translate-x-1/2 items-center justify-center"
                 >
                   {exp.incoming ? (
                     <>
@@ -186,9 +192,33 @@ export function Work() {
                 </span>
 
                 {/* Body — sits to the right of the rail */}
-                <div className="pl-6 sm:pl-10 max-w-3xl">
-                  {/* Role eyebrow */}
-                  <div className="font-mono font-[600] text-[12px] uppercase tracking-[0.14em] text-foreground/65">
+                <div className="sm:pl-10 max-w-3xl">
+                  {/* Mobile meta row — role left, date right (resume-style) */}
+                  <div className={`sm:hidden flex items-start justify-between gap-3 ${exp.incoming ? "mb-[-14px]" : "mb-1"}`}>
+                    <div className="font-mono font-[600] text-[11px] uppercase tracking-[0.13em] text-foreground/65 flex-1 leading-tight">
+                      {exp.title}
+                    </div>
+                    <div className="shrink-0 text-right font-mono font-[600] text-[11px] uppercase tracking-[0.13em] text-foreground/55 leading-tight whitespace-nowrap">
+                      <div>
+                        <span className="text-foreground/75 tabular-nums">{yearLabel(exp)}</span>
+                        <span className="mx-1.5 text-foreground/30">·</span>
+                        {isPresent(exp) ? (
+                          <>
+                            {splitLabel(exp.startLabel).month} –{" "}
+                            <span style={{ color: BRAND_BLUE }}>Present</span>
+                          </>
+                        ) : (
+                          monthRange(exp)
+                        )}
+                      </div>
+                      {exp.incoming && (
+                        <div style={{ color: BRAND_BLUE }}>Incoming</div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Role eyebrow — desktop only (mobile shows it in the meta row above) */}
+                  <div className="hidden sm:block font-mono font-[600] text-[12px] uppercase tracking-[0.14em] text-foreground/65">
                     {exp.title}
                   </div>
 
