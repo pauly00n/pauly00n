@@ -1,7 +1,9 @@
 "use client"
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import GlassPillAuto from "@/components/ui/glasspill-auto";
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import GlassPillAuto from "@/components/ui/glasspill-auto"
+import { cn } from "@/lib/utils"
+import styles from "./nav.module.css"
 
 type NavLink = { label: string; href: string; sectionId?: string }
 
@@ -52,27 +54,6 @@ export function Nav() {
 
   return (
     <header className="fixed top-6 left-0 right-0 z-50 flex justify-center bg-transparent">
-      <style>{`
-        .nav-link {
-          position: relative;
-        }
-        .nav-link::after {
-          content: '';
-          position: absolute;
-          bottom: -1px;
-          left: 0;
-          width: 100%;
-          height: 1px;
-          background: currentColor;
-          transform: scaleX(0);
-          transform-origin: center;
-          transition: transform 200ms ease;
-        }
-        .nav-link:hover::after,
-        .nav-link-active::after {
-          transform: scaleX(1);
-        }
-      `}</style>
       <GlassPillAuto
         className="flex items-center gap-6 px-6 py-3"
         tintOpacity={overProjects ? 40 : 16}
@@ -94,7 +75,11 @@ export function Nav() {
               key={link.href + link.label}
               href={link.href}
               aria-current={isActive ? "true" : undefined}
-              className={`nav-link text-sm transition-colors ${isActive ? "text-black nav-link-active" : "text-black/70 hover:text-black"}`}
+              className={cn(
+                styles.link,
+                "text-sm transition-colors",
+                isActive ? `text-black ${styles.active}` : "text-black/70 hover:text-black"
+              )}
             >
               {link.label}
             </a>

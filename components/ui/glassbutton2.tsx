@@ -1,7 +1,8 @@
 'use client'
 
-import React from 'react'
+import React, { useId } from 'react'
 import { cn } from '@/lib/utils'
+import styles from './glassbutton2.module.css'
 
 const BLUR_STD = 2
 
@@ -29,26 +30,35 @@ export default function GlassButton2({
   disableHover,
 }: GlassButton2Props) {
   const Inner = href ? 'a' : 'div'
+  const reactId = useId()
+  const filterId = `gb2-blur-filter-${reactId.replace(/[:]/g, '')}`
+
   return (
     <>
       <svg aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
         <defs>
-          <filter id="gb2-blur-filter">
+          <filter id={filterId}>
             <feGaussianBlur stdDeviation={BLUR_STD} />
           </filter>
         </defs>
       </svg>
       <div
-        className={cn('gb2-wrap', fill && 'gb2-wrap--fill')}
+        className={cn(styles.wrap, fill && styles.fill)}
         style={{ ...(size ? { fontSize: size } : undefined), ...wrapperStyle }}
       >
-        <Inner className={cn('gb2-btn', forceHover && 'gb2-btn--active', disableHover && 'gb2-btn--no-hover')} {...(href ? { href } : {})}>
-          <span className="gb2-clip" aria-hidden="true">
-            <span className="gb2-backdrop" />
+        <Inner className={cn(styles.btn, forceHover && styles.active, disableHover && styles.noHover)} {...(href ? { href } : {})}>
+          <span className={styles.clip} aria-hidden="true">
+            <span
+              className={styles.backdrop}
+              style={{
+                backdropFilter: `url(#${filterId})`,
+                WebkitBackdropFilter: `url(#${filterId})`,
+              }}
+            />
           </span>
-          <span className={cn('gb2-span', className)} style={spanStyle}>{children}</span>
+          <span className={cn(styles.span, className)} style={spanStyle}>{children}</span>
         </Inner>
-        <div className="gb2-shadow" />
+        <div className={styles.shadow} />
       </div>
     </>
   )
