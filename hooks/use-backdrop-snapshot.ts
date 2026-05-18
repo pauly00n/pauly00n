@@ -182,6 +182,14 @@ export function useBackdropSnapshot(): BackdropSnapshot | null {
           scale: CAPTURE_SCALE,
           backgroundColor,
           font: false,
+          filter: (node) => {
+            if (!(node instanceof HTMLElement)) return true
+            // Strip the noise.png overlay — the refraction blur destroys it anyway,
+            // and the inline base64 of the image inflates serialization cost.
+            const bg = node.style.backgroundImage
+            if (bg && bg.includes('noise.png')) return false
+            return true
+          },
           onCloneNode(cloned) {
             if (!(cloned instanceof HTMLElement)) return
             const style = document.createElement('style')
@@ -250,6 +258,10 @@ export function useBackdropSnapshot(): BackdropSnapshot | null {
 
       if (cancelled) return
       const tCaptureEnd = performance.now()
+      console.log(
+        `[glasspill] dom→canvas returned ${captured.width}x${captured.height} ` +
+          `(doc ${docWidth}x${docHeight}, dpr ${window.devicePixelRatio}, scale ${CAPTURE_SCALE})`
+      )
 
       const snap = buildPaddedSnapshot(captured, docWidth, docHeight)
       if (!snap) {

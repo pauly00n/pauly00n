@@ -9,8 +9,7 @@ import React, {
 } from 'react'
 import { cn, hexToRgb } from '@/lib/utils'
 import { useBackdropSnapshot, BackdropSnapshot } from '@/hooks/use-backdrop-snapshot'
-import GlassPillSafari from './glasspill-safari'
-import { GlassPillProps } from './glasspill'
+import GlassPill, { GlassPillProps } from './glasspill'
 import {
   SURFACE_FNS,
   calculateRefractionProfile,
@@ -20,7 +19,7 @@ import {
 export default function GlassPillSafari2(props: GlassPillProps) {
   const snapshot = useBackdropSnapshot()
   if (!snapshot) {
-    return <GlassPillSafari {...props} data-glasspill-snapshot-hide="" />
+    return <GlassPill {...props} data-glasspill-snapshot-hide="" />
   }
   return <WebGLGlassPill {...props} snapshot={snapshot} />
 }
