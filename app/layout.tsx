@@ -7,7 +7,8 @@ import { HeroBackground } from '@/components/hero-background';
 const _inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const _playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
 const _stix = STIX_Two_Text({ subsets: ["latin"], variable: "--font-stix", display: "swap" });
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://paulyoon.xyz'
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://paulyoon.xyz').replace(/\/$/, '')
+const ogImageUrl = `${siteUrl}/og-image.png`
 
 export const viewport: Viewport = {
   themeColor: '#e0f1f9',
@@ -18,15 +19,16 @@ export const metadata: Metadata = {
   title: 'Paul Yoon',
   description: 'Stanford University Undergraduate studying Computer Science and Music',
   alternates: {
-    canonical: '/',
+    canonical: siteUrl,
   },
   openGraph: {
     title: 'Paul Yoon',
     description: 'Stanford University Undergraduate studying Computer Science and Music',
+    url: siteUrl,
     siteName: 'Paul Yoon',
     images: [
       {
-        url: '/og-image.png',
+        url: ogImageUrl,
         width: 1200,
         height: 630,
         alt: 'Paul Yoon',
@@ -38,7 +40,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Paul Yoon',
     description: 'Stanford University Undergraduate studying Computer Science and Music',
-    images: ['/og-image.png'],
+    images: [ogImageUrl],
   },
   icons: {
     icon: [
