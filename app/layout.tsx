@@ -7,18 +7,19 @@ import { HeroBackground } from '@/components/hero-background';
 const _inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const _playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
 const _stix = STIX_Two_Text({ subsets: ["latin"], variable: "--font-stix", display: "swap" });
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://paulyoon.xyz'
 
 export const viewport: Viewport = {
   themeColor: '#e0f1f9',
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
-  ),
+  metadataBase: new URL(siteUrl),
   title: 'Paul Yoon',
   description: 'Stanford University Undergraduate studying Computer Science and Music',
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'Paul Yoon',
     description: 'Stanford University Undergraduate studying Computer Science and Music',
