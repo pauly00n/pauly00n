@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import GlassPill, { GlassPillProps } from './glasspill'
-import GlassPillSafari from './glasspill-safari'
+import GlassPillSafari from './glasspill-safari2'
 
 function isSafariBrowser() {
   if (typeof navigator === 'undefined') return false
