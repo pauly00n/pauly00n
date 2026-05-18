@@ -1,12 +1,12 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import Image from "next/image"
 import { ArrowUpRight, Github } from "lucide-react"
-import { SectionTopGlow } from "@/components/ui/section-top-glow"
+import { SectionHeading, SectionShell } from "@/components/ui/section"
 import { useIntersectionOnce } from "@/hooks/use-intersection-once"
 import { useMobileScrollLine } from "@/hooks/use-mobile-scroll-line"
-import { BRAND_BLUE } from "@/lib/utils"
+import { revealStyle } from "@/hooks/use-reveal-style"
 
 const projects = [
   {
@@ -14,7 +14,7 @@ const projects = [
     description:
       "Frontend landing page, hero, mockups, and subpages.",
     tags: ["Next.js", "Typescript", "Supabase"],
-    liveUrl: "https:/lemonlime.ai",
+    liveUrl: "https://lemonlime.ai",
     image: "/lemonlimeai.png",
   },
   {
@@ -117,10 +117,11 @@ export function Projects() {
   // Dynamic ref array — works for any number of cards without hardcoding refs
   const cardEls = useRef<(HTMLDivElement | null)[]>(projects.map(() => null))
   // Stable RefObject-compatible wrappers for useMobileScrollLine
-  const cardRefObjects = useRef(
-    projects.map((_, i) => ({
+  const cardRefObjects = useMemo(
+    () => projects.map((_, i) => ({
       get current() { return cardEls.current[i] }
-    }))
+    })),
+    []
   )
 
   const headingVisible = useIntersectionOnce(sectionRef)
@@ -158,14 +159,10 @@ export function Projects() {
   }, [])
 
   const activeIdx = useMobileScrollLine(
-    cardRefObjects.current as Parameters<typeof useMobileScrollLine>[0],
+    cardRefObjects as Parameters<typeof useMobileScrollLine>[0],
     isMobile
   )
-function fadeStyle(delayMs: number): React.CSSProperties {
-    return headingVisible
-      ? { animation: `projectsFadeIn 400ms ease-out ${delayMs}ms both` }
-      : { opacity: 0 }
-  }
+  const fadeStyle = (delayMs: number) => revealStyle(headingVisible, "projectsFadeIn", delayMs, 400)
 
   function cardFadeStyle(idx: number): React.CSSProperties {
     if (isMobile) {
@@ -194,23 +191,15 @@ function fadeStyle(delayMs: number): React.CSSProperties {
   }
 
   return (
-    <section ref={sectionRef} id="projects" className="relative border-t border-border/50 min-h-screen" >
-      <SectionTopGlow />
-
-      <div className="mx-auto max-w-6xl px-6 py-24 lg:px-8 lg:py-24">
-
+    <SectionShell id="projects" maxWidth="6xl" className="min-h-screen" sectionRef={sectionRef}>
         {/* Heading */}
-        <div className="mb-10">
-          <h2 className="font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-            <span style={fadeStyle(200)}>
-              Here&apos;s what I&apos;ve
-            </span>
-            <br />
-            <span className="italic" style={{ color: BRAND_BLUE, ...fadeStyle(500) }}>
-              worked on.
-            </span>
-          </h2>
-        </div>
+        <SectionHeading
+          first="Here's what I've"
+          second="worked on."
+          className="mb-10"
+          firstStyle={fadeStyle(200)}
+          secondStyle={fadeStyle(500)}
+        />
 
         {/* 2-column grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -218,7 +207,7 @@ function fadeStyle(delayMs: number): React.CSSProperties {
             const primaryUrl = project.liveUrl || project.githubUrl || "#"
             const isCardActive = isMobile && activeIdx === idx
             const isSoloLastCard = NUM_PROJECTS % 2 === 1 && idx === NUM_PROJECTS - 1
-              return (
+            return (
               <div
                 key={project.title}
                 ref={el => { cardEls.current[idx] = el }}
@@ -313,7 +302,6 @@ function fadeStyle(delayMs: number): React.CSSProperties {
             )
           })}
         </div>
-      </div>
-    </section>
+    </SectionShell>
   )
 }

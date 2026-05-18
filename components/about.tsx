@@ -3,34 +3,28 @@
 import { useRef } from "react"
 import Image from "next/image"
 import TextLink from "@/components/ui/textlink"
-import { SectionTopGlow } from "@/components/ui/section-top-glow"
+import { SectionHeading, SectionShell } from "@/components/ui/section"
 import { useIntersectionOnce } from "@/hooks/use-intersection-once"
-import { BRAND_BLUE } from "@/lib/utils"
+import { revealStyle } from "@/hooks/use-reveal-style"
 
 export function About() {
   const sectionRef = useRef<HTMLElement | null>(null)
   const visible = useIntersectionOnce(sectionRef)
 
-  const fadeUp = (delay: number): React.CSSProperties =>
-    visible
-      ? { animation: `fadeUp 550ms ease-out ${delay}ms both` }
-      : { opacity: 0 }
+  const fadeUp = (delay: number) => revealStyle(visible, "fadeUp", delay)
 
   return (
-    <section ref={sectionRef} id="about" className="relative border-t border-border/50">
-      <SectionTopGlow />
-
-      <div className="mx-auto max-w-5xl px-6 py-24 lg:px-8 lg:py-24">
+    <SectionShell id="about" maxWidth="5xl" sectionRef={sectionRef}>
         <div className="grid gap-10 sm:grid-cols-5">
           {/* Left column */}
           <div className="flex flex-col gap-6 sm:col-span-2">
-            <h2 className="text-balance font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl pb-6">
-              <span style={fadeUp(0)}>A bit</span>
-              <br />
-              <span className="italic" style={{ color: BRAND_BLUE, ...fadeUp(300) }}>
-                about me.
-              </span>
-            </h2>
+            <SectionHeading
+              first="A bit"
+              second="about me."
+              className="text-balance pb-6"
+              firstStyle={fadeUp(0)}
+              secondStyle={fadeUp(300)}
+            />
             <div style={fadeUp(400)} className="relative w-[85%] sm:w-full mx-auto overflow-hidden rounded-2xl">
               <Image
                 src="/about-me-image.png"
@@ -67,7 +61,6 @@ export function About() {
             </p>
           </div>
         </div>
-      </div>
-    </section>
+    </SectionShell>
   )
 }

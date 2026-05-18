@@ -1,17 +1,16 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
-import { SectionTopGlow } from "@/components/ui/section-top-glow"
-import { SectionLabel } from "@/components/ui/section-label"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { SectionHeading, SectionShell } from "@/components/ui/section"
 import { useIntersectionOnce, useIntersectionsOnce } from "@/hooks/use-intersection-once"
 import { useMobileScrollLine } from "@/hooks/use-mobile-scroll-line"
+import { revealStyle } from "@/hooks/use-reveal-style"
 import GlassButton2 from "@/components/ui/glassbutton2"
-import { BRAND_BLUE } from "@/lib/utils"
 import { FaPython, FaReact, FaAws } from "react-icons/fa"
 import {
   SiGit, SiLatex, SiTypescript, SiJavascript, SiPandas,
   SiScikitlearn, SiPytorch, SiCplusplus, SiApachespark,
-  SiJupyter, SiQt, SiFlask, SiExpress, SiFastapi, SiTailwindcss, SiC, SiGooglecloud,
+  SiJupyter, SiQt, SiExpress, SiFastapi, SiTailwindcss, SiC, SiGooglecloud,
 } from "react-icons/si"
 import { PiFileHtmlDuotone } from "react-icons/pi"
 import { TbBrandReactNative, TbMath } from "react-icons/tb"
@@ -87,7 +86,7 @@ export function Skills() {
   const colRef0 = useRef<HTMLDivElement>(null)
   const colRef1 = useRef<HTMLDivElement>(null)
   const colRef2 = useRef<HTMLDivElement>(null)
-  const colRefs = [colRef0, colRef1, colRef2]
+  const colRefs = useMemo(() => [colRef0, colRef1, colRef2], [])
 
   const [isMobile, setIsMobile] = useState(false)
   useEffect(() => {
@@ -102,11 +101,7 @@ export function Skills() {
   const colVisible = useIntersectionsOnce(colRefs)
   const activeColIdx = useMobileScrollLine(colRefs, isMobile)
 
-  function headingFade(delay = 0): React.CSSProperties {
-    return headingVisible
-      ? { animation: `skillsFromBottom 600ms ease-out ${delay}ms both` }
-      : { opacity: 0 }
-  }
+  const headingFade = (delay = 0) => revealStyle(headingVisible, "skillsFromBottom", delay, 600)
 
   function colFade(col: number): React.CSSProperties {
     if (!colVisible[col]) return { opacity: 0 }
@@ -114,18 +109,14 @@ export function Skills() {
   }
 
   return (
-    <section ref={sectionRef} id="skills" className="relative border-t border-border/50">
-      <SectionTopGlow />
-
-      <div className="mx-auto max-w-5xl px-6 py-24 lg:px-8 lg:py-24">
-
-        <h2 className="mb-16 font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-          <span style={headingFade(0)}>Skills: Things I</span>
-          <br />
-          <span className="italic" style={{ color: BRAND_BLUE, ...headingFade(300) }}>
-            Build With.
-          </span>
-        </h2>
+    <SectionShell id="skills" maxWidth="5xl" sectionRef={sectionRef}>
+        <SectionHeading
+          first="Skills: Things I"
+          second="Build With."
+          className="mb-16"
+          firstStyle={headingFade(0)}
+          secondStyle={headingFade(300)}
+        />
 
         {/* 3-column grid */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -159,7 +150,6 @@ export function Skills() {
           ))}
         </div>
 
-      </div>
-    </section>
+    </SectionShell>
   )
 }

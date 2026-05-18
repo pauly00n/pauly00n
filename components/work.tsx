@@ -1,9 +1,10 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { createRef, useMemo, useRef } from "react"
 import { ArrowUpRight } from "lucide-react"
-import { SectionTopGlow } from "@/components/ui/section-top-glow"
+import { SectionHeading, SectionShell } from "@/components/ui/section"
 import { useIntersectionOnce, useIntersectionsOnce } from "@/hooks/use-intersection-once"
+import { revealStyle } from "@/hooks/use-reveal-style"
 import { BRAND_BLUE } from "@/lib/utils"
 
 type Experience = {
@@ -83,46 +84,21 @@ export function Work() {
   const sectionRef = useRef<HTMLElement>(null)
   const headingVisible = useIntersectionOnce(sectionRef)
 
-  const rowRefs = useRef(experiences.map(() => ({ current: null as HTMLElement | null })))
-  const rowRefObjects = rowRefs.current
-  const rowVisible = useIntersectionsOnce(rowRefObjects)
+  const rowRefs = useMemo(() => experiences.map(() => createRef<HTMLElement>()), [])
+  const rowVisible = useIntersectionsOnce(rowRefs)
 
-  const titleRefs = useRef(experiences.map(() => ({ current: null as HTMLDivElement | null })))
-  const [wrapped, setWrapped] = useState<boolean[]>(() => experiences.map(() => false))
-
-  useEffect(() => {
-    function measure() {
-      setWrapped(experiences.map((_, i) => {
-        const el = titleRefs.current[i].current
-        if (!el) return false
-        return el.getBoundingClientRect().height > 20
-      }))
-    }
-    measure()
-    window.addEventListener('resize', measure)
-    return () => window.removeEventListener('resize', measure)
-  }, [])
-
-  function headingFade(delay = 0): React.CSSProperties {
-    return headingVisible
-      ? { animation: `skillsFromBottom 550ms ease-out ${delay}ms both` }
-      : { opacity: 0 }
-  }
+  const headingFade = (delay = 0) => revealStyle(headingVisible, "skillsFromBottom", delay)
 
   return (
-    <section ref={sectionRef} id="work" className="relative border-t border-border/50">
-      <SectionTopGlow />
-
-      <div className="mx-auto max-w-6xl px-6 py-24 lg:px-8 lg:py-24">
-
+    <SectionShell id="work" maxWidth="6xl" sectionRef={sectionRef}>
         {/* Heading */}
-        <h2 className="mb-16 sm:mb-20 font-serif text-3xl font-medium tracking-tight text-foreground sm:text-4xl">
-          <span style={headingFade(150)}>Where I&apos;ve</span>
-          <br />
-          <span className="italic" style={{ color: BRAND_BLUE, ...headingFade(400) }}>
-            been working.
-          </span>
-        </h2>
+        <SectionHeading
+          first="Where I've"
+          second="been working."
+          className="mb-16 sm:mb-20"
+          firstStyle={headingFade(150)}
+          secondStyle={headingFade(400)}
+        />
 
         {/* Timeline */}
         <div className="relative sm:pl-32 md:pl-40">
@@ -147,7 +123,7 @@ export function Work() {
             return (
               <article
                 key={exp.company + exp.startLabel}
-                ref={el => { rowRefObjects[idx].current = el }}
+                ref={rowRefs[idx]}
                 className="group/row relative pb-14 sm:pb-8 last:pb-0"
                 style={rowStyle}
               >
@@ -210,13 +186,8 @@ export function Work() {
                 {/* Body — sits to the right of the rail */}
                 <div className="sm:pl-10 max-w-3xl">
                   {/* Mobile meta row — role left, date right (resume-style) */}
-                  <div className={`sm:hidden flex items-start justify-between gap-3 ${
-                    exp.incoming
-                      ? (wrapped[idx] ? "mb-[-6px]" : "mb-[-14px]")
-                      : (wrapped[idx] ? "mb-[-6px]" : "mb-[-6px]")
-                  }`}>
+                  <div className="sm:hidden mb-2 flex items-start justify-between gap-3">
                     <div
-                      ref={el => { titleRefs.current[idx].current = el }}
                       className="font-mono font-[600] text-[11px] uppercase tracking-[0.13em] text-foreground/65 flex-1 leading-tight"
                     >
                       {exp.title}
@@ -241,7 +212,7 @@ export function Work() {
                   </div>
 
                   {/* Role eyebrow — desktop only (mobile shows it in the meta row above) */}
-                  <div className="hidden sm:block font-mono font-[600] text-[12px] uppercase tracking-[0.14em] text-foreground/65 mb-[-6px]">
+                  <div className="hidden sm:block font-mono font-[600] text-[12px] uppercase tracking-[0.14em] text-foreground/65">
                     {exp.title}
                   </div>
 
@@ -250,7 +221,7 @@ export function Work() {
                     href={exp.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group/link mt-3 inline-flex items-baseline gap-2"
+                    className="group/link mt-1 inline-flex items-baseline gap-2 sm:mt-3"
                   >
                     <h3
                       className="relative font-serif font-medium leading-[1.1] text-2xl sm:text-[28px] text-foreground transition-colors duration-300"
@@ -284,7 +255,6 @@ export function Work() {
           })}
         </div>
 
-      </div>
-    </section>
+    </SectionShell>
   )
 }

@@ -1,11 +1,9 @@
 import { ArrowDown } from "lucide-react"
-import TextLink from "@/components/ui/textlink";
+import TextLink from "@/components/ui/textlink"
 import { ButtonRow } from "@/components/buttonrow"
-import GlassButton2 from "@/components/ui/glassbutton2"
+import { immediateRevealStyle } from "@/hooks/use-reveal-style"
 
-const fadeUp = (delay: number): React.CSSProperties => ({
-  animation: `fadeUp 550ms ease-out ${delay}ms both`,
-})
+const fadeUp = (delay: number) => immediateRevealStyle("fadeUp", delay)
 
 export function Hero() {
   return (
@@ -31,7 +29,7 @@ export function Hero() {
           {/* Bio */}
         <div className="px-[5%]">
           <p style={fadeUp(520)} className="mx-auto mt-6 max-w-[600px] text-pretty text-[15px] sm:text-[17px] leading-relaxed text-foreground/70">
-            I'm a third year undergraduate at <TextLink href="https://stanford.edu" className="text-[15px] sm:text-[17px]">Stanford University</TextLink> studying <span className="font-medium text-foreground">Computer Science and Music</span>. I strive to find meaning through my work, whether I'm building projects, conducting research, or learning new things.
+            I&apos;m a third year undergraduate at <TextLink href="https://stanford.edu" className="text-[15px] sm:text-[17px]">Stanford University</TextLink> studying <span className="font-medium text-foreground">Computer Science and Music</span>. I strive to find meaning through my work, whether I&apos;m building projects, conducting research, or learning new things.
           </p>
         </div>
 
