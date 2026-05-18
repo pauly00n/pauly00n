@@ -22,7 +22,7 @@ const experiences: Experience[] = [
     startLabel: "Jun 2026",
     endLabel: "Aug 2026",
     title: "Software Development Engineer Intern",
-    company: "Amazon Web Services",
+    company: "Amazon Web Services (AWS)",
     subtitle: "SageMaker HyperPod Team",
     url: "https://aws.amazon.com/sagemaker/hyperpod/",
     description:
@@ -157,7 +157,7 @@ export function Work() {
                       className="mt-2 font-[600] font-mono text-[12px] tracking-[0.13em]"
                       style={{ color: BRAND_BLUE }}
                     >
-                      ^INCOMING
+                      INCOMING
                     </div>
                   )}
                 </div>
