@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ArrowUpRight } from "lucide-react"
 import { SectionTopGlow } from "@/components/ui/section-top-glow"
 import { useIntersectionOnce, useIntersectionsOnce } from "@/hooks/use-intersection-once"
@@ -86,6 +86,22 @@ export function Work() {
   const rowRefs = useRef(experiences.map(() => ({ current: null as HTMLElement | null })))
   const rowRefObjects = rowRefs.current
   const rowVisible = useIntersectionsOnce(rowRefObjects)
+
+  const titleRefs = useRef(experiences.map(() => ({ current: null as HTMLDivElement | null })))
+  const [wrapped, setWrapped] = useState<boolean[]>(() => experiences.map(() => false))
+
+  useEffect(() => {
+    function measure() {
+      setWrapped(experiences.map((_, i) => {
+        const el = titleRefs.current[i].current
+        if (!el) return false
+        return el.getBoundingClientRect().height > 20
+      }))
+    }
+    measure()
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
 
   function headingFade(delay = 0): React.CSSProperties {
     return headingVisible
@@ -194,8 +210,15 @@ export function Work() {
                 {/* Body — sits to the right of the rail */}
                 <div className="sm:pl-10 max-w-3xl">
                   {/* Mobile meta row — role left, date right (resume-style) */}
-                  <div className={`sm:hidden flex items-start justify-between gap-3 ${exp.incoming ? "mb-[-14px]" : "mb-1"}`}>
-                    <div className="font-mono font-[600] text-[11px] uppercase tracking-[0.13em] text-foreground/65 flex-1 leading-tight">
+                  <div className={`sm:hidden flex items-start justify-between gap-3 ${
+                    exp.incoming
+                      ? (wrapped[idx] ? "mb-[-6px]" : "mb-[-14px]")
+                      : (wrapped[idx] ? "mb-[-6px]" : "mb-[-6px]")
+                  }`}>
+                    <div
+                      ref={el => { titleRefs.current[idx].current = el }}
+                      className="font-mono font-[600] text-[11px] uppercase tracking-[0.13em] text-foreground/65 flex-1 leading-tight"
+                    >
                       {exp.title}
                     </div>
                     <div className="shrink-0 text-right font-mono font-[600] text-[11px] uppercase tracking-[0.13em] text-foreground/55 leading-tight whitespace-nowrap">
@@ -218,7 +241,7 @@ export function Work() {
                   </div>
 
                   {/* Role eyebrow — desktop only (mobile shows it in the meta row above) */}
-                  <div className="hidden sm:block font-mono font-[600] text-[12px] uppercase tracking-[0.14em] text-foreground/65">
+                  <div className="hidden sm:block font-mono font-[600] text-[12px] uppercase tracking-[0.14em] text-foreground/65 mb-[-6px]">
                     {exp.title}
                   </div>
 
