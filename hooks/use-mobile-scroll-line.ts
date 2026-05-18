@@ -40,7 +40,7 @@ export function useMobileScrollLine(
       window.removeEventListener("scroll", check)
       window.removeEventListener("resize", check)
     }
-  }, [enabled, lineRatio])
+  }, [enabled, lineRatio, refs])
 
   return activeIdx
 }

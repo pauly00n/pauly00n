@@ -39,7 +39,7 @@ export function useIntersectionsOnce(refs: Ref[], threshold = 0.05): boolean[] {
       return observer
     })
     return () => observers.forEach(o => o?.disconnect())
-  }, [])
+  }, [refs, threshold])
 
   return visible
 }
