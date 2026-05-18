@@ -231,7 +231,7 @@ export function Work() {
                       <span
                         aria-hidden="true"
                         className="absolute left-0 right-0 -bottom-1 h-px scale-x-0 origin-left transition-transform duration-500 ease-out group-hover/link:scale-x-100"
-                        style={{ background: BRAND_BLUE, opacity: 0.5 }}
+                        style={{ background: BRAND_BLUE, opacity: 0.8 }}
                       />
                     </h3>
                     <ArrowUpRight
