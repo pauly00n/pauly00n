@@ -17,7 +17,7 @@ export interface BackdropSnapshot {
 const SNAPSHOT_PAD = 96
 const CAPTURE_SCALE = 0.25
 const IMAGE_WAIT_CAP_MS = 200
-const CACHE_KEY_PREFIX = 'glasspill-snapshot-v1:'
+const CACHE_KEY_PREFIX = 'glasspill-snapshot-v2:'
 
 export type SnapshotStatus =
   | { state: 'idle' }
