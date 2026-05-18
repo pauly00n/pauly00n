@@ -8,7 +8,7 @@ const _inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "s
 const _playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
 const _stix = STIX_Two_Text({ subsets: ["latin"], variable: "--font-stix", display: "swap" });
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://paulyoon.xyz').replace(/\/$/, '')
-const ogImageUrl = `${siteUrl}/og-image.png`
+const ogImageUrl = `${siteUrl}/og-image2.png`
 
 export const viewport: Viewport = {
   themeColor: '#e0f1f9',
