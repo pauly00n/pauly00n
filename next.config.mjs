@@ -3,6 +3,11 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
+  async redirects() {
+    return [
+      { source: '/about', destination: '/#about', permanent: true },
+    ]
+  },
   async headers() {
     return [
       {
