@@ -1,26 +1,28 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { domToPng } from 'modern-screenshot'
+import { domToCanvas } from 'modern-screenshot'
 
 export interface BackdropSnapshot {
-  source: HTMLImageElement | HTMLCanvasElement
-  width: number    // padded texture width
-  height: number   // padded texture height
+  source: HTMLCanvasElement
+  width: number    // padded texture width (CSS px)
+  height: number   // padded texture height (CSS px)
   padX: number
   padY: number
   docWidth: number
   docHeight: number
+  scale: number    // capture scale; texture is doc*scale + pad*2 in real pixels
 }
 
 const SNAPSHOT_PAD = 96
+const CAPTURE_SCALE = 0.5
+const IMAGE_WAIT_CAP_MS = 1000
 
 export type SnapshotStatus =
   | { state: 'idle' }
   | { state: 'waiting-fonts' }
   | { state: 'waiting-images' }
   | { state: 'capturing' }
-  | { state: 'loading-image' }
   | { state: 'ready'; data: BackdropSnapshot }
   | { state: 'error'; message: string }
 
@@ -49,7 +51,6 @@ export function useBackdropSnapshot(): BackdropSnapshot | null {
       } catch {}
 
       pushDebug({ state: 'waiting-images' })
-      // Force-eager any lazy images so they actually begin loading
       const allImgs = Array.from(document.images)
       for (const i of allImgs) {
         if (i.loading === 'lazy') i.loading = 'eager'
@@ -64,26 +65,35 @@ export function useBackdropSnapshot(): BackdropSnapshot | null {
             })
         )
       )
-      // hard cap: don't block forever if an image hangs
       await Promise.race([
         imgWait,
-        new Promise<void>(res => setTimeout(res, 4000)),
+        new Promise<void>(res => setTimeout(res, IMAGE_WAIT_CAP_MS)),
       ])
 
       if (cancelled) return
 
+      // Yield to idle so we don't fight LCP
+      await new Promise<void>(res => {
+        if ('requestIdleCallback' in window) {
+          ;(window as any).requestIdleCallback(() => res(), { timeout: 200 })
+        } else {
+          setTimeout(res, 0)
+        }
+      })
+
+      if (cancelled) return
+
       pushDebug({ state: 'capturing' })
-      // Use a known-safe rgb literal that matches the injected snapshot body bg.
-      // Avoid passing oklch() through here — older Safari canvas builds may not
-      // accept it as fillStyle, leaving the pad area black.
       const backgroundColor = '#e8f3fb'
-      let url: string
+
+      let captured: HTMLCanvasElement
       try {
-        url = await domToPng(body, {
+        captured = await domToCanvas(body, {
           width: docWidth,
           height: docHeight,
-          scale: 1,
+          scale: CAPTURE_SCALE,
           backgroundColor,
+          font: false,
           onCloneNode(cloned) {
             if (!(cloned instanceof HTMLElement)) return
             const style = document.createElement('style')
@@ -127,40 +137,40 @@ export function useBackdropSnapshot(): BackdropSnapshot | null {
 
       if (cancelled) return
 
-      pushDebug({ state: 'loading-image' })
-      const img = new Image()
-      img.onload = () => {
-        if (cancelled) return
-        const pad = SNAPSHOT_PAD
-        const W = docWidth + pad * 2
-        const H = docHeight + pad * 2
-        const canvas = document.createElement('canvas')
-        canvas.width = W
-        canvas.height = H
-        const ctx = canvas.getContext('2d')
-        if (!ctx) {
-          pushDebug({ state: 'error', message: '2d ctx unavailable' })
-          return
-        }
-        ctx.fillStyle = backgroundColor
-        ctx.fillRect(0, 0, W, H)
-        ctx.drawImage(img, pad, pad, docWidth, docHeight)
-        const snap: BackdropSnapshot = {
-          source: canvas,
-          width: W,
-          height: H,
-          padX: pad,
-          padY: pad,
-          docWidth,
-          docHeight,
-        }
-        pushDebug({ state: 'ready', data: snap })
-        setData(snap)
+      const pad = SNAPSHOT_PAD
+      const W = docWidth + pad * 2
+      const H = docHeight + pad * 2
+      const padW = Math.floor(W * CAPTURE_SCALE)
+      const padH = Math.floor(H * CAPTURE_SCALE)
+      const docDrawW = Math.floor(docWidth * CAPTURE_SCALE)
+      const docDrawH = Math.floor(docHeight * CAPTURE_SCALE)
+      const padDrawX = Math.floor(pad * CAPTURE_SCALE)
+      const padDrawY = Math.floor(pad * CAPTURE_SCALE)
+
+      const canvas = document.createElement('canvas')
+      canvas.width = padW
+      canvas.height = padH
+      const ctx = canvas.getContext('2d')
+      if (!ctx) {
+        pushDebug({ state: 'error', message: '2d ctx unavailable' })
+        return
       }
-      img.onerror = () => {
-        pushDebug({ state: 'error', message: 'image load failed' })
+      ctx.fillStyle = backgroundColor
+      ctx.fillRect(0, 0, padW, padH)
+      ctx.drawImage(captured, padDrawX, padDrawY, docDrawW, docDrawH)
+
+      const snap: BackdropSnapshot = {
+        source: canvas,
+        width: W,
+        height: H,
+        padX: pad,
+        padY: pad,
+        docWidth,
+        docHeight,
+        scale: CAPTURE_SCALE,
       }
-      img.src = url
+      pushDebug({ state: 'ready', data: snap })
+      setData(snap)
     }
 
     debounceTimer = window.setTimeout(capture, 150)
