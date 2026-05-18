@@ -82,6 +82,19 @@ export default function RootLayout({
                         }),
                     }}
                 />
+                <script
+                    id="schema-website"
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{
+                        __html: JSON.stringify({
+                            "@context": "https://schema.org",
+                            "@type": "WebSite",
+                            "name": "Paul Yoon",
+                            "alternateName": "paulyoon.xyz",
+                            "url": siteUrl
+                        }),
+                    }}
+                />
             </head>
       <body className={`${_inter.variable} ${_playfair.variable} ${_stix.variable} font-sans antialiased`} style={{ background: 'transparent' }}>
         <div style={{ position: 'fixed', top: '-300px', bottom: '-300px', left: 0, right: 0, zIndex: -10, willChange: 'auto' }}>
