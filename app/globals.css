@@ -382,6 +382,10 @@
   }
 }
 
+section[id] {
+  scroll-margin-top: 0 !important;
+}
+
 @layer utilities {
   .animate-fade-in {
     animation: fade-in 0.8s ease-out;

@@ -1,18 +1,19 @@
 "use client"
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
 import Image from "next/image";
 import GlassPillAuto from "@/components/ui/glasspill-auto";
 
-const navLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
+type NavLink = { label: string; href: string; sectionId?: string }
+
+const navLinks: NavLink[] = [
+  { label: "Work", href: "#work", sectionId: "work" },
+  { label: "Projects", href: "#projects", sectionId: "projects" },
   { label: "Resume", href: "/resume.pdf" },
 ]
 
 export function Nav() {
-  const pathname = usePathname()
   const [overProjects, setOverProjects] = useState(false)
+  const [activeId, setActiveId] = useState<string | null>(null)
 
   useEffect(() => {
     function check() {
@@ -24,6 +25,29 @@ export function Nav() {
     check()
     window.addEventListener('scroll', check, { passive: true })
     return () => window.removeEventListener('scroll', check)
+  }, [])
+
+  useEffect(() => {
+    const ids = navLinks.map(l => l.sectionId).filter(Boolean) as string[]
+    const els = ids.map(id => document.getElementById(id)).filter(Boolean) as HTMLElement[]
+    if (!els.length) return
+
+    function pick() {
+      const probe = 74 + 24
+      let current: string | null = null
+      for (const el of els) {
+        const { top, bottom } = el.getBoundingClientRect()
+        if (top <= probe && bottom > probe) { current = el.id; break }
+      }
+      setActiveId(current)
+    }
+    pick()
+    window.addEventListener('scroll', pick, { passive: true })
+    window.addEventListener('resize', pick)
+    return () => {
+      window.removeEventListener('scroll', pick)
+      window.removeEventListener('resize', pick)
+    }
   }, [])
 
   return (
@@ -53,24 +77,29 @@ export function Nav() {
         className="flex items-center gap-6 px-6 py-3"
         tintOpacity={overProjects ? 40 : 16}
       >
-        <Image
-            src="/icon-light.png"
-            className="text-sm font-semibold tracking-tight text-foreground"
-            alt="PY Logo"
-            width={20}
-            height={20}
-        />
+        <a href="#" aria-label="Home" className="flex items-center">
+          <Image
+              src="/icon-light.png"
+              className="text-sm font-semibold tracking-tight text-foreground"
+              alt="PY Logo"
+              width={20}
+              height={20}
+          />
+        </a>
         <div className="h-4 w-px bg-foreground/10" />
-        {navLinks.map((link) => (
-          <a
-            key={link.href + link.label}
-            href={link.href}
-            aria-current={pathname === link.href ? "page" : undefined}
-            className={`nav-link text-sm transition-colors ${pathname === link.href ? "text-black nav-link-active" : "text-black/70 hover:text-black"}`}
-          >
-            {link.label}
-          </a>
-        ))}
+        {navLinks.map((link) => {
+          const isActive = link.sectionId ? activeId === link.sectionId : false
+          return (
+            <a
+              key={link.href + link.label}
+              href={link.href}
+              aria-current={isActive ? "true" : undefined}
+              className={`nav-link text-sm transition-colors ${isActive ? "text-black nav-link-active" : "text-black/70 hover:text-black"}`}
+            >
+              {link.label}
+            </a>
+          )
+        })}
       </GlassPillAuto>
     </header>
   )
