@@ -63,7 +63,7 @@ async function main() {
     })
 
     // Give layout a chance to settle
-    await new Promise(res => setTimeout(res, 500))
+    await new Promise(res => setTimeout(res, 2000))
 
     const result = await page.evaluate(async () => {
       // @ts-ignore
