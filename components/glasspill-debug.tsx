@@ -20,10 +20,17 @@ function ThumbCanvas({
   useEffect(() => {
     const c = ref.current
     if (!c) return
-    const w = 200
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 700
+    const maxH = isMobile ? 120 : 400
+    const maxW = isMobile ? 80 : 200
     const sw = source.width || 1
     const sh = source.height || 1
-    const h = Math.round((sh / sw) * w)
+    let w = maxW
+    let h = Math.round((sh / sw) * w)
+    if (h > maxH) {
+      h = maxH
+      w = Math.round((sw / sh) * h)
+    }
     c.width = w
     c.height = h
     const ctx = c.getContext('2d')
@@ -35,7 +42,8 @@ function ThumbCanvas({
       ref={ref}
       style={{
         marginTop: 6,
-        width: 200,
+        maxWidth: typeof window !== 'undefined' && window.innerWidth < 700 ? 80 : 200,
+        maxHeight: typeof window !== 'undefined' && window.innerWidth < 700 ? 120 : 400,
         height: 'auto',
         border: '1px solid rgba(255,255,255,0.3)',
         display: 'block',
@@ -44,17 +52,34 @@ function ThumbCanvas({
   )
 }
 
+const SHOW_DEBUG = false
+
 export function GlassPillDebug() {
+  if (!SHOW_DEBUG) return null
+  return <GlassPillDebugPanel />
+}
+
+function GlassPillDebugPanel() {
   const [status, setStatus] = useState<SnapshotStatus>({ state: 'idle' })
+  const [align, setAlign] = useState<string>('')
 
   useEffect(() => {
     const handler = (e: Event) => {
       setStatus((e as CustomEvent<SnapshotStatus>).detail)
     }
+    const alignHandler = (e: Event) => {
+      setAlign((e as CustomEvent<string>).detail)
+    }
     window.addEventListener('glasspill-debug', handler)
+    window.addEventListener('glasspill-align', alignHandler)
     const existing = (window as any).__glasspillDebug
     if (existing) setStatus(existing)
-    return () => window.removeEventListener('glasspill-debug', handler)
+    const existingAlign = (window as any).__glasspillAlign
+    if (existingAlign) setAlign(existingAlign)
+    return () => {
+      window.removeEventListener('glasspill-debug', handler)
+      window.removeEventListener('glasspill-align', alignHandler)
+    }
   }, [])
 
   const color =
@@ -75,7 +100,8 @@ export function GlassPillDebug() {
         padding: '8px 10px',
         borderRadius: 8,
         font: '12px ui-monospace, monospace',
-        maxWidth: 320,
+        maxWidth: typeof window !== 'undefined' && window.innerWidth < 700 ? 140 : 320,
+        fontSize: typeof window !== 'undefined' && window.innerWidth < 700 ? 9 : 12,
         pointerEvents: 'none',
       }}
     >
@@ -86,6 +112,11 @@ export function GlassPillDebug() {
       {status.state === 'error' && (
         <div style={{ marginTop: 4, color: '#fca5a5', wordBreak: 'break-word' }}>
           {status.message}
+        </div>
+      )}
+      {align && (
+        <div style={{ marginTop: 4, fontSize: 10, color: '#9ca3af', wordBreak: 'break-all' }}>
+          {align}
         </div>
       )}
       {status.state === 'ready' && (

@@ -6,6 +6,7 @@ import { About } from "@/components/about"
 import { Footer } from "@/components/footer"
 import { ScrollReset } from "@/components/scroll-reset"
 import { GlassPillDebug } from "@/components/glasspill-debug"
+import SnapshotBootstrap from "@/components/snapshot-bootstrap"
 
 export default function Page() {
   return (
@@ -20,6 +21,7 @@ export default function Page() {
       </main>
       <Footer />
       <GlassPillDebug />
+      <SnapshotBootstrap />
     </>
   )
 }

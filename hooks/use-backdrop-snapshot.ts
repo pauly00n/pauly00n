@@ -12,6 +12,7 @@ export interface BackdropSnapshot {
   docWidth: number
   docHeight: number
   scale: number    // capture scale; texture is doc*scale + pad*2 in real pixels
+  heroHeight?: number  // height of .hero in snapshot (for piecewise live→snap Y mapping)
 }
 
 const SNAPSHOT_PAD = 96

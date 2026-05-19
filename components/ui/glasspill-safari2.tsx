@@ -8,7 +8,8 @@ import React, {
   useState,
 } from 'react'
 import { cn, hexToRgb } from '@/lib/utils'
-import { useBackdropSnapshot, BackdropSnapshot } from '@/hooks/use-backdrop-snapshot'
+import { BackdropSnapshot } from '@/hooks/use-backdrop-snapshot'
+import { usePrebuiltSnapshot } from '@/hooks/use-prebuilt-snapshot'
 import GlassPill, { GlassPillProps } from './glasspill'
 import {
   SURFACE_FNS,
@@ -17,7 +18,7 @@ import {
 } from '@/lib/glass-physics'
 
 export default function GlassPillSafari2(props: GlassPillProps) {
-  const snapshot = useBackdropSnapshot()
+  const snapshot = usePrebuiltSnapshot()
   if (!snapshot) {
     return <GlassPill {...props} data-glasspill-snapshot-hide="" />
   }
@@ -297,10 +298,45 @@ function WebGLGlassPill({
     const uOrigin = u('iPillOrigin')
 
     let raf = 0
+    let loggedOnce = false
+    const liveHeroEl = document.querySelector('.hero') as HTMLElement | null
     const render = () => {
       const rect = container.getBoundingClientRect()
-      const ox = rect.left + window.scrollX + snapshot.padX
-      const oy = rect.top + window.scrollY + snapshot.padY + 10
+      const liveDocW = Math.max(
+        document.body.scrollWidth,
+        document.documentElement.scrollWidth,
+        document.documentElement.clientWidth
+      )
+      const liveDocH = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.clientHeight
+      )
+      const xScale = snapshot.docWidth / liveDocW
+      const liveHeroH = liveHeroEl ? liveHeroEl.offsetHeight : 0
+      const snapHeroH = snapshot.heroHeight ?? 0
+      const liveY = rect.top + window.scrollY
+      // piecewise: linear within hero, then 1:1 after (hero is the only region with viewport-relative sizing)
+      let snapY: number
+      if (snapHeroH > 0 && liveHeroH > 0) {
+        if (liveY < liveHeroH) {
+          snapY = liveY * (snapHeroH / liveHeroH)
+        } else {
+          snapY = snapHeroH + (liveY - liveHeroH)
+        }
+      } else {
+        snapY = liveY
+      }
+      if (!loggedOnce) {
+        loggedOnce = true
+        const msg = `live ${liveDocW}x${liveDocH} hero ${liveHeroH} | snap ${snapshot.docWidth}x${snapshot.docHeight} hero ${snapHeroH} | pillY ${liveY.toFixed(0)}→${snapY.toFixed(0)}`
+        console.log('[glasspill]', msg)
+        ;(window as any).__glasspillAlign = msg
+        window.dispatchEvent(new CustomEvent('glasspill-align', { detail: msg }))
+      }
+      const offsetY = (window as any).__glasspillOffsetY ?? 30
+      const ox = (rect.left + window.scrollX) * xScale + snapshot.padX
+      const oy = snapY + offsetY + snapshot.padY
       gl.uniform2f(uOrigin, ox, oy)
       gl.clearColor(0, 0, 0, 0)
       gl.clear(gl.COLOR_BUFFER_BIT)

@@ -1,0 +1,59 @@
+{
+  "snapshots": [
+    {
+      "docWidth": 393,
+      "docHeight": 8030,
+      "width": 585,
+      "height": 8222,
+      "padX": 96,
+      "padY": 96,
+      "scale": 0.25,
+      "heroHeight": 852,
+      "file": "/glasspill-snapshots/393.png"
+    },
+    {
+      "docWidth": 402,
+      "docHeight": 8069,
+      "width": 594,
+      "height": 8261,
+      "padX": 96,
+      "padY": 96,
+      "scale": 0.25,
+      "heroHeight": 874,
+      "file": "/glasspill-snapshots/402.png"
+    },
+    {
+      "docWidth": 420,
+      "docHeight": 8210,
+      "width": 612,
+      "height": 8402,
+      "padX": 96,
+      "padY": 96,
+      "scale": 0.25,
+      "heroHeight": 910,
+      "file": "/glasspill-snapshots/420.png"
+    },
+    {
+      "docWidth": 430,
+      "docHeight": 8281,
+      "width": 622,
+      "height": 8473,
+      "padX": 96,
+      "padY": 96,
+      "scale": 0.25,
+      "heroHeight": 932,
+      "file": "/glasspill-snapshots/430.png"
+    },
+    {
+      "docWidth": 440,
+      "docHeight": 8354,
+      "width": 632,
+      "height": 8546,
+      "padX": 96,
+      "padY": 96,
+      "scale": 0.25,
+      "heroHeight": 956,
+      "file": "/glasspill-snapshots/440.png"
+    }
+  ]
+}
