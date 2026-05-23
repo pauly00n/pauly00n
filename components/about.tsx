@@ -40,7 +40,7 @@ export function About() {
           {/* Right column */}
           <div className="flex flex-col gap-6 w-[85%] mx-auto sm:w-full sm:mx-0 sm:col-span-3 text-center sm:text-left text-pretty">
             <p style={fadeUp(520)} className="text-pretty text-sm sm:text-base leading-relaxed text-foreground/80">
-              I was born in Boston, MA, lived in Houston, TX for 10 years, then moved to the Bay Area for high school. I&apos;ll be in the Bay Area for the next year. I plan to graduate with a degree in Computer Science and a minor in Music.
+              I was born in Boston, MA, lived in Houston, TX for 10 years, then moved to the Bay Area for high school. I plan to graduate from Stanford with a degree in Computer Science and minors in Mathematics and Music.
             </p>
 
             <p style={fadeUp(640)} className="text-pretty text-sm sm:text-base leading-relaxed text-foreground/80">
