@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react"
-import Image from "next/image"
+import { usePathname } from "next/navigation"
 import GlassPillAuto from "@/components/ui/glasspill-auto"
 import { cn } from "@/lib/utils"
 import styles from "./nav.module.css"
@@ -14,6 +14,7 @@ const navLinks: NavLink[] = [
 ]
 
 export function Nav() {
+  const pathname = usePathname()
   const [overProjects, setOverProjects] = useState(false)
   const [activeId, setActiveId] = useState<string | null>(null)
 
@@ -52,20 +53,32 @@ export function Nav() {
     }
   }, [])
 
+  if (pathname === "/branding") return null
+
   return (
     <header className="fixed top-6 left-0 right-0 z-50 flex justify-center bg-transparent">
       <GlassPillAuto
         className="flex items-center gap-6 px-6 py-3"
-        tintOpacity={overProjects ? 40 : 16}
+        tintOpacity={overProjects ? 40 : 20}
       >
         <a href="#" aria-label="Home" className="flex items-center">
-          <Image
-              src="/icon-light.png"
-              className="text-sm font-semibold tracking-tight text-foreground"
-              alt="PY Logo"
-              width={20}
-              height={20}
-          />
+          <svg
+            width={20}
+            height={20}
+            viewBox="0 0 50 50"
+            role="img"
+            aria-label="PY Logo"
+            className="text-black"
+          >
+            <mask id="py-logo-mask">
+              <rect width="50" height="50" fill="#000" />
+              <path d="M15 6 L15 14 L24.26 25.85" fill="none" stroke="#fff" strokeWidth={7} strokeLinecap="butt" strokeLinejoin="miter" />
+              <path d="M21.5 21 L28.5 21 L28.5 46 L21.5 46 Z" fill="#fff" />
+              <path d="M24 6 L28.5 6 A11 11 0 0 1 28.5 28 L28.5 21 A4 4 0 0 0 28.5 13 L24 13 Z" fill="#fff" />
+              <rect x={28} y={21} width={1} height={7} fill="#fff" />
+            </mask>
+            <rect width="50" height="50" fill="currentColor" mask="url(#py-logo-mask)" />
+          </svg>
         </a>
         <div className="h-4 w-px bg-foreground/10" />
         {navLinks.map((link) => {
