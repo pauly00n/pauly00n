@@ -8,12 +8,12 @@ import { revealStyle } from "@/hooks/use-reveal-style"
 import GlassButton2 from "@/components/ui/glassbutton2"
 import { FaPython, FaReact, FaAws } from "react-icons/fa"
 import {
-  SiGit, SiLatex, SiTypescript, SiJavascript, SiPandas,
+  SiGit, SiTypescript, SiJavascript, SiPandas,
   SiScikitlearn, SiPytorch, SiCplusplus, SiApachespark,
   SiJupyter, SiQt, SiExpress, SiFastapi, SiTailwindcss, SiC, SiGooglecloud,
 } from "react-icons/si"
 import { PiFileHtmlDuotone } from "react-icons/pi"
-import { TbBrandReactNative, TbMath } from "react-icons/tb"
+import { TbBrandReactNative } from "react-icons/tb"
 import { RiNextjsFill, RiSupabaseFill } from "react-icons/ri"
 import { VscVscode } from "react-icons/vsc"
 
@@ -25,8 +25,6 @@ const columns = [
       { label: "JavaScript",  Icon: SiJavascript },
       { label: "TypeScript",  Icon: SiTypescript },
       { label: "HTML / CSS",  Icon: PiFileHtmlDuotone },
-      { label: "LaTeX",       Icon: SiLatex },
-      { label: "Lean",        Icon: TbMath },
       { label: "C++",         Icon: SiCplusplus },
       { label: "C",           Icon: SiC },
     ],
