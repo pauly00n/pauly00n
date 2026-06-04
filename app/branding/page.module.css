@@ -1,0 +1,1865 @@
+/* [project]/app/branding/page.module.css [app-client] (css) */
+.deck {
+  --ink: var(--foreground);
+  --muted: var(--muted-foreground);
+  --quiet: color-mix(in oklab, var(--foreground) 45%, transparent);
+  --hairline: var(--border);
+  --blue: var(--accent);
+  --blue-deep: #005d82;
+  --surface-1: #f5f9fd;
+  --surface-2: #e8f3fb;
+  --surface-3: #d6eaf8;
+  --surface-4: #c4e0f5;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  height: 100svh;
+  color: var(--ink);
+  background: linear-gradient(#f5f9fd29, #c4e0f505), #1c2833;
+  overflow-y: auto;
+}
+
+@supports (color: lab(0% 0 0)) {
+  .deck {
+    --blue-deep: lab(36.2282% -16.7505 -36.628);
+  }
+}
+
+.deck:after {
+  content: "";
+  z-index: 0;
+  opacity: .12;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  background-image: url("/noise.png");
+  background-size: 700px 700px;
+  position: fixed;
+  inset: 0;
+}
+
+.panel {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  z-index: 1;
+  background: radial-gradient(circle at 50% 0%, #3ca0dc33, transparent 46%), linear-gradient(180deg, var(--surface-1) 0%, var(--surface-2) 34%, var(--surface-3) 72%, var(--surface-4) 100%);
+  border-radius: 8px;
+  width: min(92vw, 1280px);
+  min-height: 92svh;
+  margin: 7svh auto;
+  padding: 112px 88px 88px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px #ffffffc2, 0 40px 110px -56px #0009;
+}
+
+.panel:after {
+  content: "";
+  z-index: -1;
+  opacity: .1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  background-image: url("/noise.png");
+  background-size: 700px 700px;
+  position: absolute;
+  inset: 0;
+}
+
+.darkPanel {
+  color: #f5f9fdf0;
+  background: radial-gradient(at 50% 12%, #3ca0dc38, #0000 48%), linear-gradient(#172536 0%, #0f1c2b 100%);
+  box-shadow: inset 0 1px #ffffff06, 0 40px 110px -56px #000000b3;
+}
+
+.darkPanel:after {
+  opacity: .16;
+  mix-blend-mode: screen;
+}
+
+.panel [data-reveal] {
+  opacity: 0;
+  transition: opacity .6s ease-out, transform .6s ease-out;
+  transition-delay: var(--d, 0s);
+  will-change: opacity, transform;
+  transform: translateY(12px);
+}
+
+.inView [data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel [data-reveal] {
+    opacity: 1;
+    transition: none;
+    transform: none;
+  }
+}
+
+.label, .folio, .mono {
+  font-family: var(--font-stix), "STIX Two Text", "Times New Roman", Times, serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.label {
+  z-index: 3;
+  color: var(--muted);
+  margin: 0;
+  font-size: 18px;
+  position: absolute;
+  top: 48px;
+  left: 56px;
+}
+
+.darkPanel .label {
+  color: #f5f9fd85;
+}
+
+.folio {
+  z-index: 3;
+  color: var(--quiet);
+  font-size: 16px;
+  position: absolute;
+  bottom: 44px;
+  right: 52px;
+}
+
+.darkPanel .folio {
+  color: #f5f9fd5c;
+}
+
+.sectionTitle {
+  z-index: 2;
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  letter-spacing: -.03em;
+  margin: 0;
+  font-size: clamp(64px, 9vw, 124px);
+  font-weight: 500;
+  line-height: .92;
+  position: relative;
+}
+
+.sectionLede {
+  z-index: 2;
+  max-width: 620px;
+  color: var(--muted);
+  margin: 28px 0 0;
+  font-size: 18px;
+  line-height: 1.5;
+  position: relative;
+}
+
+.ledeDark {
+  color: #f5f9fda8;
+}
+
+.blockHead {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 18px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.darkPanel .blockHead {
+  color: #f5f9fd8f;
+}
+
+.cover {
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.coverMark {
+  z-index: 3;
+  width: 64px;
+  height: auto;
+  position: absolute;
+  top: 52px;
+  left: 52px;
+}
+
+.coverLockup {
+  z-index: 2;
+  position: relative;
+}
+
+.wordmark {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  letter-spacing: -.03em;
+  margin: 0;
+  font-size: clamp(96px, 16vw, 208px);
+  font-weight: 500;
+  line-height: .95;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  margin: 28px 0 0;
+  font-size: clamp(20px, 2.4vw, 30px);
+  font-weight: 450;
+  line-height: 1.4;
+}
+
+.url {
+  z-index: 3;
+  color: var(--blue);
+  font-size: 16px;
+  position: absolute;
+  bottom: 48px;
+  left: 52px;
+}
+
+.markPanel {
+  --guide: color-mix(in oklab, var(--blue) 82%, white);
+  grid-template-columns: minmax(0, 1.04fr) minmax(0, .82fr);
+  align-items: center;
+  gap: 72px;
+  display: grid;
+}
+
+.markFigure {
+  z-index: 2;
+  justify-self: center;
+  width: 100%;
+  max-width: 500px;
+  margin: 0;
+  position: relative;
+}
+
+.blueprint {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.bpMinor line {
+  stroke: var(--blue);
+  stroke-width: .05px;
+  opacity: .16;
+}
+
+.bpMajor line {
+  stroke: var(--blue);
+  stroke-width: .12px;
+  opacity: .42;
+}
+
+.bpAxis text {
+  fill: var(--blue);
+  opacity: .7;
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  font-weight: 600;
+}
+
+.bpMark {
+  fill: var(--ink);
+}
+
+.bpGuide {
+  fill: none;
+  stroke: var(--guide);
+  stroke-width: .16px;
+  stroke-dasharray: .9 .7;
+}
+
+.bpBase {
+  stroke: var(--guide);
+  stroke-width: .12px;
+  stroke-dasharray: 1.4 .9;
+  opacity: .85;
+}
+
+.bpDim line {
+  stroke: var(--guide);
+  stroke-width: .14px;
+}
+
+.bpNode circle {
+  fill: var(--guide);
+}
+
+.bpLabel text {
+  fill: var(--guide);
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .03em;
+  font-weight: 600;
+}
+
+.bpCaption {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 16px;
+  font-size: 13px;
+}
+
+.markText {
+  z-index: 2;
+  position: relative;
+}
+
+.markText .sectionLede {
+  font-size: 18px;
+  line-height: 1.5;
+  max-width: 460px;
+}
+
+.markUsage {
+  border-top: 1px solid var(--hairline);
+  grid-template-columns: minmax(0, .92fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 30px;
+  margin-top: 30px;
+  padding-top: 24px;
+  display: grid;
+}
+
+.usage {
+  flex-direction: column;
+  gap: 12px;
+  display: flex;
+}
+
+.usageBody {
+  align-items: center;
+  gap: 16px;
+  display: flex;
+}
+
+.clearFig {
+  flex: none;
+  width: 88px;
+  margin: 0;
+}
+
+.clearSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.csOuter {
+  fill: none;
+  stroke: var(--guide);
+  stroke-width: .45px;
+  stroke-dasharray: 2.2 1.6;
+}
+
+.csBox {
+  fill: none;
+  stroke: var(--guide);
+  stroke-width: .3px;
+  opacity: .55;
+}
+
+.csMark {
+  fill: var(--ink);
+}
+
+.csLabel text {
+  fill: var(--blue);
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .02em;
+  font-weight: 600;
+}
+
+.markUsage .blockHead {
+  margin: 0;
+}
+
+.usageNote {
+  color: var(--muted);
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.usageNote b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.donts ul {
+  flex-direction: column;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+}
+
+.donts li {
+  color: var(--muted);
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.45;
+  position: relative;
+}
+
+.donts li:before {
+  content: "×";
+  color: var(--blue);
+  font-weight: 600;
+  position: absolute;
+  top: -.5px;
+  left: 2px;
+}
+
+/* tablet band only — below 860 the slide is scaled at its 1280px desktop
+   canvas, so this 1-col reflow must not apply there */
+@media (min-width: 861px) and (max-width: 900px) {
+  .markPanel {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 40px;
+  }
+
+  .markFigure {
+    width: min(86%, 460px);
+  }
+
+  .markText {
+    max-width: 560px;
+  }
+}
+
+.colorPanel {
+  flex-direction: column;
+  justify-content: space-between;
+  display: flex;
+}
+
+.colorHead {
+  z-index: 2;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  display: flex;
+  position: relative;
+}
+
+.colorLede {
+  max-width: 460px;
+  color: var(--muted);
+  margin: 14px 0 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.arches {
+  z-index: 2;
+  align-items: flex-end;
+  gap: 24px;
+  max-width: 80%;
+  margin-inline: auto;
+  display: flex;
+  position: relative;
+}
+
+.archCol {
+  flex: 1;
+  min-width: 0;
+}
+
+.arch {
+  border-radius: 999px 999px 10px 10px;
+  width: 100%;
+  display: block;
+  box-shadow: inset 0 2px #ffffff8c, 0 22px 44px -28px #0a192980;
+}
+
+.archName {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 18px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.archHex {
+  letter-spacing: .04em;
+  color: var(--muted);
+  margin-top: 5px;
+  font-size: 14px;
+  display: block;
+}
+
+.archUse {
+  min-height: 2.7em;
+  color: var(--quiet);
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 1.35;
+  display: block;
+}
+
+.archNote {
+  z-index: 2;
+  max-width: 80%;
+  color: var(--quiet);
+  margin: 14px auto 0;
+  font-size: 12px;
+  line-height: 1.4;
+  position: relative;
+}
+
+.subColors {
+  z-index: 2;
+  border-top: 1px solid var(--hairline);
+  flex-direction: column;
+  gap: 30px;
+  padding-top: 22px;
+  display: flex;
+  position: relative;
+}
+
+.subHead {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tokenGrid {
+  grid-template-columns: repeat(auto-fit, minmax(248px, 1fr));
+  gap: 13px 44px;
+  display: grid;
+}
+
+.fieldGrid {
+  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+  gap: 13px 30px;
+  display: grid;
+}
+
+.dotCell, .tokenCell {
+  align-items: center;
+  gap: 11px;
+  font-size: 13px;
+  display: flex;
+}
+
+.tokenMeta {
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+  display: flex;
+}
+
+.tokenMeta b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.tokenMeta code {
+  letter-spacing: .02em;
+  color: var(--quiet);
+  text-transform: none;
+  font-size: 11px;
+}
+
+.tokenHex {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .04em;
+  color: var(--muted);
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.dot2 {
+  border-radius: 6px;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  box-shadow: inset 0 1px #fff6;
+}
+
+.dotCell b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.dotCell code {
+  color: var(--muted);
+  margin-left: auto;
+  font-size: 12px;
+}
+
+.useNote {
+  color: var(--quiet);
+  margin-top: 2px;
+  font-size: 13px;
+  display: block;
+}
+
+.sTop {
+  background: #f5f9fd;
+}
+
+.sMid {
+  background: #e8f3fb;
+}
+
+.sDeep {
+  background: #d6eaf8;
+}
+
+.sFloor {
+  background: #c4e0f5;
+}
+
+.sBase {
+  background: #e0f1f9;
+}
+
+.sBloom {
+  background: #3ca0dc;
+}
+
+.swAccent {
+  background: var(--accent);
+}
+
+.swFg {
+  background: var(--foreground);
+}
+
+.swMuted {
+  background: var(--muted-foreground);
+}
+
+.swBorder {
+  background: var(--border);
+}
+
+.swBg {
+  background: var(--background);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.swDestructive {
+  background: var(--destructive);
+}
+
+.typePanel {
+  flex-direction: column;
+  justify-content: flex-start;
+  display: flex;
+}
+
+.typeHead {
+  z-index: 2;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  display: flex;
+  position: relative;
+}
+
+.typeLede {
+  color: #f5f9fda8;
+  max-width: 460px;
+  margin: 14px 0 0;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.typeScaleList {
+  z-index: 2;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-evenly;
+  margin-top: 40px;
+  display: flex;
+  position: relative;
+}
+
+.typeRow {
+  border-top: 1px solid #f5f9fd1f;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 40px;
+  padding: 11px 0;
+  display: grid;
+}
+
+.typeMeta {
+  text-align: right;
+  white-space: nowrap;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+  display: flex;
+}
+
+.typeMeta b {
+  letter-spacing: .01em;
+  color: #f5f9fde6;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.specGroup {
+  align-items: baseline;
+  gap: 14px;
+  display: flex;
+}
+
+.spec {
+  align-items: baseline;
+  gap: 3px;
+  display: inline-flex;
+}
+
+.specVal {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .01em;
+  color: #f5f9fdd1;
+  font-variant-numeric: tabular-nums;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.specUnit {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #f5f9fd66;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.typeSample {
+  color: #f5f9fdf5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+  padding-bottom: .16em;
+  overflow: hidden;
+}
+
+.tDisplay, .tH1, .tH2 {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  letter-spacing: -.03em;
+  font-weight: 500;
+}
+
+.tDisplay {
+  font-size: 80px;
+  line-height: 1.12;
+}
+
+.tH1 {
+  font-size: 52px;
+  line-height: 1.12;
+}
+
+.tH2 {
+  letter-spacing: -.025em;
+  font-size: 40px;
+  line-height: 1.14;
+}
+
+.tH3 {
+  font-family: var(--font-inter), "Inter", sans-serif;
+  letter-spacing: -.01em;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.tBodyL {
+  font-family: var(--font-inter), "Inter", sans-serif;
+  white-space: normal;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.tBody {
+  font-family: var(--font-inter), "Inter", sans-serif;
+  white-space: normal;
+  color: #f5f9fdb8;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.tRole {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: 0;
+  color: #f5f9fde6;
+  font-size: 24px;
+  font-weight: 450;
+}
+
+.tCaption {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #f5f9fd9e;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.motionPanel {
+  flex-direction: column;
+  display: flex;
+}
+
+.inlineToken {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .02em;
+  color: var(--blue-deep);
+  font-size: .86em;
+}
+
+.motionStage {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-top: 56px;
+  display: grid;
+}
+
+.motionTile {
+  position: relative;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.3) 100%);
+  border: 1px solid rgba(10, 25, 41, 0.07);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  min-height: 244px;
+  padding: 28px 26px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 18px 44px -32px rgba(10, 25, 41, 0.45);
+  transition: box-shadow 400ms cubic-bezier(0.25, 1, 0.5, 1);
+}
+.motionTile:hover {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 24px 50px -28px rgba(1, 123, 185, 0.5);
+}
+
+/* soft glass chip holding the brand-blue directional arrow */
+.motionGlyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  color: var(--blue);
+  background: linear-gradient(150deg, rgba(60, 160, 220, 0.2) 0%, rgba(1, 123, 185, 0.05) 100%);
+  border: 1px solid rgba(1, 123, 185, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 8px 18px -12px rgba(1, 123, 185, 0.5);
+}
+.motionArrow {
+  width: 22px;
+  height: 22px;
+  transform-origin: center;
+}
+
+.motionText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.motionTile b {
+  color: var(--ink);
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* spec pinned to the card foot, divided by a hairline */
+.motionTile code {
+  margin-top: auto;
+  width: 100%;
+  padding-top: 14px;
+  border-top: 1px solid rgba(10, 25, 41, 0.08);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.demoFade {
+  animation: .55s ease-out both motionFade;
+}
+
+.demoLeft {
+  animation: .55s ease-out both motionLeft;
+}
+
+.demoBottom {
+  animation: .55s ease-out both motionBottom;
+}
+
+.demoRight {
+  animation: .55s ease-out both motionRight;
+}
+
+@keyframes motionFade {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes motionLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateX(5px);
+  }
+
+  80% {
+    transform: translateX(-2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes motionBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(-5px);
+  }
+
+  80% {
+    transform: translateY(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes motionRight {
+  0% {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateX(-5px);
+  }
+
+  80% {
+    transform: translateX(2px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.replay {
+  cursor: pointer;
+  background: none;
+  border: none;
+  align-self: flex-start;
+  margin-top: 40px;
+  padding: 0;
+}
+
+.replayIcon {
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+.glassPanel {
+  flex-direction: column;
+  justify-content: flex-start;
+  display: flex;
+}
+
+.glassHead {
+  z-index: 2;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  display: flex;
+  position: relative;
+}
+
+.glassLede {
+  max-width: 460px;
+  color: var(--muted);
+  margin: 14px 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.glassBody {
+  z-index: 2;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+  align-items: stretch;
+  gap: 40px;
+  margin-top: 32px;
+  display: grid;
+  position: relative;
+}
+
+.glassDemos {
+  flex-direction: column;
+  gap: 16px;
+  display: flex;
+}
+
+.glassStage {
+  background: radial-gradient(at 50% 16%, #ffffff80, #0000 38%), linear-gradient(135deg, #eaf4fc 0%, #cfe6f7 42%, #8fc0e6 78%, #3ca0dc 100%);
+  border-radius: 22px;
+  flex: 1;
+  place-items: center;
+  min-height: 180px;
+  display: grid;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px #fff9;
+}
+
+.glassWord {
+  white-space: nowrap;
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  letter-spacing: -.03em;
+  color: #0a1929d1;
+  grid-area: 1 / 1;
+  place-self: center;
+  margin: 0;
+  font-size: clamp(72px, 9vw, 120px);
+  font-weight: 500;
+}
+
+.glassPillSlot {
+  z-index: 2;
+  cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.glassPillSlot:active {
+  cursor: grabbing;
+}
+
+.glassHint {
+  z-index: 3;
+  color: #f5f9fdeb;
+  white-space: nowrap;
+  pointer-events: none;
+  background: #0a1929b3;
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 10.5px;
+  position: absolute;
+  top: 14px;
+  left: 16px;
+}
+
+.glassBtnDemo {
+  background: radial-gradient(at 50% 28%, #ffffff6b, #0000 42%), linear-gradient(135deg, #e8f3fb 0%, #c4e0f5 58%, #7fb6e3 100%);
+  border-radius: 16px;
+  place-items: center;
+  height: 92px;
+  display: grid;
+  overflow: hidden;
+}
+
+.glassBtnDemo > div {
+  margin-top: 0;
+}
+
+.glassDemoCaption {
+  color: var(--quiet);
+  margin: 14px 0 0;
+  font-size: 11px;
+}
+
+.glassDocs {
+  flex-direction: column;
+  /* stretch to the full grid-row height (set by the left column) so the two
+     cards together match the left stack's height */
+  align-self: stretch;
+  gap: 16px;
+  display: flex;
+}
+
+.glassCard {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background: linear-gradient(#ffffff80, #ffffff2e), #ffffff38;
+  border: 1px solid #0a192914;
+  border-radius: 16px;
+  /* grow equally to fill the stretched column without touching content */
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-evenly;
+  gap: 12px;
+  min-height: 150px;
+  padding: 24px 24px 26px;
+  display: flex;
+  box-shadow: inset 0 1px #ffffffb3, 0 18px 44px -32px #0a192973;
+}
+
+.glassCard .blockHead {
+  margin: 0;
+}
+
+.glassDesc {
+  color: var(--muted);
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.glassDesc code, .glassRule code {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .02em;
+  color: var(--blue-deep);
+  font-size: .92em;
+}
+
+.paramList {
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 24px;
+  margin: 2px 0 0;
+  display: grid;
+}
+
+.paramList > div {
+  display: grid;
+  /* fixed label column so every dd starts on the same vertical line within
+     a column-of-rows; 96px fits the longest two-word labels ("DISPLAY FONT",
+     "FOOTER MARK", etc.) without forcing a third line on shorter ones. */
+  grid-template-columns: 96px 1fr;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #0a192917;
+}
+
+.paramList dt {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.paramList dd {
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+}
+
+.glassRule {
+  z-index: 2;
+  max-width: 880px;
+  color: var(--muted);
+  margin: 20px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  position: relative;
+}
+
+.glassRule b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* tablet band only — below 860 the whole slide is scaled at its desktop canvas,
+   so this reflow must NOT apply there (it would fight the 1280px render) */
+@media (min-width: 861px) and (max-width: 900px) {
+  .glassBody {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .glassHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
+.browserPanel {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.chrome {
+  z-index: 2;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  background: linear-gradient(#ffffff61, #ffffff24), #ffffff38;
+  border: 1px solid #ffffff94;
+  border-radius: 24px;
+  width: min(80%, 860px);
+  height: 460px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 1px #ffffffb8, 0 28px 70px -40px #0a192980;
+}
+
+.browserBar {
+  border-bottom: 1px solid #0a192914;
+  align-items: center;
+  gap: 12px;
+  height: 66px;
+  padding: 0 22px;
+  display: flex;
+}
+
+.dot {
+  background: #0a19292e;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+}
+
+.urlbar {
+  color: #0a19296b;
+  background: #ffffff70;
+  border-radius: 999px;
+  justify-content: center;
+  align-items: center;
+  width: 340px;
+  height: 32px;
+  margin-left: auto;
+  font-size: 14px;
+  display: flex;
+}
+
+.heroCrop {
+  text-align: center;
+  place-items: center;
+  height: calc(100% - 66px);
+  display: grid;
+}
+
+.heroCrop h2 {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  letter-spacing: -.03em;
+  margin: 0;
+  font-size: 80px;
+  font-weight: 500;
+}
+
+.heroRole {
+  color: var(--muted);
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .01em;
+  margin: 16px auto 0;
+  font-size: 19px;
+  font-weight: 450;
+}
+
+.heroBio {
+  max-width: 460px;
+  color: var(--ink);
+  opacity: .7;
+  margin: 18px auto 0;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.essence {
+  align-items: center;
+  display: flex;
+}
+
+/* three stacked rows: "A research" / "notebook" / glass pill */
+.essenceStack {
+  z-index: 2;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(12px, 1.6vw, 24px);
+}
+
+.essenceHeadline {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  letter-spacing: -.03em;
+  margin: 0;
+  font-size: clamp(56px, 8vw, 104px);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ink);
+}
+
+.essenceLine {
+  display: block;
+}
+
+/* "bound in glass." inside the glass button — blue italic, no inherited
+   button text-shadow so the accent stays crisp. */
+.essencePillText {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1;
+  color: var(--blue);
+  text-shadow: none;
+  white-space: nowrap;
+}
+
+.stationery {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.cardStack {
+  z-index: 2;
+  width: 520px;
+  height: 320px;
+  position: relative;
+}
+
+.paper {
+  background: linear-gradient(#f5f9fdf2, #e8f3fbeb);
+  border: 1px solid #ffffffbd;
+  border-radius: 8px;
+  position: absolute;
+  inset: 0;
+  box-shadow: 0 30px 64px -38px #0a192980;
+}
+
+.paperBack {
+  opacity: .78;
+  transform: translate(30px, -30px)rotate(3deg);
+}
+
+.paperFront {
+  padding: 44px;
+  transform: rotate(-2deg);
+}
+
+.paperFront img {
+  width: 46px;
+  height: auto;
+}
+
+.cardName {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  letter-spacing: -.03em;
+  margin: 34px 0 0;
+  font-size: 44px;
+}
+
+.cardRole {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  color: var(--muted);
+  margin: 8px 0 0;
+  font-size: 16px;
+  font-weight: 450;
+}
+
+.cardMeta {
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  letter-spacing: .01em;
+  color: var(--blue);
+  margin: 18px 0 0;
+  font-size: 14px;
+}
+
+.cardMeta + .cardMeta {
+  margin-top: 4px;
+}
+
+.atmosphere {
+  padding: 0;
+}
+
+.field {
+  z-index: -2;
+  background: radial-gradient(at 42% 10%, #fff9, #0000 40%), linear-gradient(#eef5fb 0%, #e8f2fa 50%, #cfe1f1 57%, #8fb8da 74%, #5b8fbd 100%);
+  position: absolute;
+  inset: 0;
+}
+
+.bloomWrap {
+  z-index: -2;
+  border-radius: inherit;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.horizon {
+  z-index: -2;
+  background: radial-gradient(at 50% 0, #ffffff8c, #0000 60%);
+  border-radius: 50% 50% 0 0;
+  height: 22%;
+  position: absolute;
+  top: 54%;
+  left: -10%;
+  right: -10%;
+}
+
+.caption {
+  z-index: 2;
+  max-width: 380px;
+  color: var(--ink);
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  letter-spacing: -.02em;
+  margin: 0;
+  font-size: 64px;
+  line-height: 1.15;
+  position: absolute;
+  bottom: 72px;
+  left: 72px;
+}
+
+.atmoNotes {
+  z-index: 2;
+  flex-direction: column;
+  gap: 28px;
+  width: 300px;
+  display: flex;
+  position: absolute;
+  top: 112px;
+  right: 88px;
+}
+
+.atmoGroup .paramList {
+  grid-template-columns: 1fr;
+  margin-top: 10px;
+}
+
+.atmoList {
+  color: var(--ink);
+  flex-direction: column;
+  gap: 7px;
+  margin: 10px 0 0;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  list-style: none;
+  display: flex;
+}
+
+.atmoList li {
+  padding-left: 16px;
+  position: relative;
+}
+
+.atmoList li:before {
+  content: "";
+  background: var(--blue);
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  position: absolute;
+  top: .62em;
+  left: 0;
+}
+
+/* ---- mobile: render every slide at its desktop canvas, scaled to fit ----
+   Instead of reflowing each slide for narrow screens (brittle, high-variance),
+   we render the real desktop layout at a fixed 1280×880 canvas and uniformly
+   scale it down to the phone's width. Each slide becomes a faithful, full-width
+   mini-poster — short vertically, no per-slide mobile CSS. */
+.bSlide {
+  /* desktop: invisible to layout — the inner .panel is a direct deck child */
+  display: contents;
+}
+
+@media (max-width: 860px) {
+  /* free scroll on mobile — no snap */
+  .deck {
+    scroll-snap-type: none;
+  }
+
+  .bSlide {
+    display: block;
+    position: relative;
+    container-type: inline-size;
+    width: 92vw;
+    margin: 6svh auto;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 24px 60px -42px rgba(0, 0, 0, 0.5);
+    /* pre-JS fallback height; MobileSlideFit replaces this with the slide's
+       measured natural height so sparse slides aren't padded and dense ones
+       aren't clipped */
+    height: calc(92vw * 0.66);
+  }
+
+  .bHideMobile {
+    display: none !important;
+  }
+
+  .bSlide > .panel,
+  .bSlide > section {
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: none !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    scroll-snap-align: none !important;
+    transform-origin: top left;
+    /* fallback canvas before JS measures; JS sets width/height/transform inline */
+    width: 1080px;
+    min-height: 0;
+    transform: scale(calc(100cqw / 1080px));
+  }
+
+  /* slides 01-02 (cover, essence) carry very little text, so at the scaled
+     canvas it reads too small — bump their type 1.5x */
+  .bSlide .wordmark {
+    font-size: clamp(144px, 24vw, 312px);
+  }
+  .bSlide .subtitle {
+    font-size: clamp(30px, 3.6vw, 45px);
+  }
+  .bSlide .essenceHeadline {
+    font-size: clamp(84px, 12vw, 156px);
+  }
+  /* the "bound in glass." pill — scale the whole glass button (its inline
+     font-size drives both the text and the em-based chrome) */
+  .bSlide .essenceStack > div {
+    font-size: clamp(72px, 10.5vw, 135px) !important;
+  }
+}
+
+
+/* ============================================================ 10 contact sheet
+   takes one slide's worth of scroll real-estate but renders no chrome itself —
+   just a 3x3 grid of the REAL slide components, each shrunk uniformly via a
+   container-query-driven transform: scale. inner sections are forced to fill
+   their wrapper at canonical slide dimensions so the layout matches 1:1. */
+.ovSection {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 1280px);
+  height: 92svh;
+  margin: 7svh auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ovTile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #0f1c2b;
+  container-type: inline-size;
+  box-shadow: 0 12px 40px -28px rgba(0, 0, 0, 0.55);
+}
+
+/* the canonical slide wrapper — width matches a real slide; the scale ratio
+   shrinks it to the tile's width. height is set to match a real slide too, so
+   the inner panel's layout (min-height: 92svh in its own CSS) is honored. */
+.ovInner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(92vw, 1280px);
+  height: 92svh;
+  transform-origin: top left;
+  transform: scale(calc(100cqw / min(92vw, 1280px)));
+  pointer-events: none;
+}
+
+/* neutralize each inner slide's outer-layout chrome — margin / snap / autoscale
+   on min-height — so it fills the canonical wrapper exactly instead of
+   reapplying its own slide-level positioning. internal layout (padding,
+   typography, figures, animations) is untouched. */
+.ovInner > section {
+  margin: 0 !important;
+  min-height: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  scroll-snap-align: none !important;
+  scroll-snap-stop: unset !important;
+}
+
+/* ============================================================ 09 slide template
+   three 16:9 slide mocks (title / divider / body) shown side-by-side, plus a
+   specs block + rules. uses the same head + aside grammar as the icons panel
+   used to, so it slots in without inventing new conventions. */
+.tplPanel {
+  display: grid;
+  /* stage row takes 1fr so leftover panel height flows into the slides
+     themselves rather than pooling as whitespace at the bottom. */
+  grid-template-rows: auto 1fr auto;
+  /* standard panel top padding so the gap below the section label matches
+     every other slide; the slides take their extra height from the 1fr
+     stage row, not from shaving the frame. horizontal pad stays tighter to
+     keep the mocks wide. */
+  padding: 112px 56px 64px;
+  /* deck-standard 40px gap on both sides of the stage (head→stage and
+     stage→aside) */
+  row-gap: 40px;
+}
+
+.tplHead {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+}
+.tplHead .sectionLede {
+  flex: 0 1 460px;
+  margin-top: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.tplStage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  /* center the slides and let them sit just under full height — trims the
+     frames slightly while keeping the head→stage / stage→aside gaps balanced */
+  align-items: center;
+}
+
+.tplSlide {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  height: 85%;
+}
+
+.tplFrame {
+  position: relative;
+  /* 16:9 is the floor; the frame grows taller to absorb free panel
+     height instead of leaving whitespace below the stage. */
+  flex: 1 1 auto;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 28px 30px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 18px 44px -28px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+}
+
+.tplFrameLight {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(60, 160, 220, 0.16), transparent 56%),
+    linear-gradient(180deg, var(--surface-1) 0%, var(--surface-2) 40%, var(--surface-3) 100%);
+  color: var(--ink);
+}
+
+.tplFrameDark {
+  background:
+    radial-gradient(ellipse at 50% 14%, rgba(60, 160, 220, 0.22), transparent 50%),
+    linear-gradient(180deg, #172536 0%, #0f1c2b 100%);
+  color: rgba(245, 249, 253, 0.94);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 18px 44px -28px rgba(0, 0, 0, 0.55);
+}
+
+/* footer meta — url + folio, pinned bottom-right like a slide page number */
+.tplFrameFooter {
+  position: absolute;
+  left: 26px;
+  right: 26px;
+  bottom: 16px;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+.tplFrameFooterMeta {
+  font-size: 8.5px;
+  letter-spacing: 0.16em;
+  color: var(--quiet);
+}
+.tplFrameFooterMetaDark { color: rgba(245, 249, 253, 0.36); }
+
+/* title slide -------------------------------------------- */
+.tplFrameMark {
+  width: 18px;
+  height: 18px;
+  color: var(--ink);
+}
+.tplTitleBlock {
+  margin: auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.tplTitleWord {
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 0.96;
+  margin: 0;
+}
+.tplTitleRole {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* section divider --------------------------------------- */
+/* one vertically-centered block: label / folio / rule / title */
+.tplDividerBlock {
+  margin: auto 0;
+}
+.tplDividerLabel {
+  margin: 0;
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245, 249, 253, 0.5);
+}
+.tplDividerFolio {
+  margin: 6px 0 0;
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: var(--blue);
+}
+.tplDividerRule {
+  display: block;
+  width: 30px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(245, 249, 253, 0.32);
+  margin: 16px 0 14px;
+}
+.tplDividerTitle {
+  margin: 0;
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-size: clamp(26px, 3vw, 38px);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1;
+  color: rgba(245, 249, 253, 0.96);
+}
+
+/* body slide -------------------------------------------- */
+/* one vertically-centered block: eyebrow / title / accent / list */
+.tplBodyBlock {
+  margin: auto 0;
+}
+.tplBodyEyebrow {
+  margin: 0;
+  font-family: var(--font-stix), "STIX Two Text", Times, serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.tplBodyTitle {
+  margin: 6px 0 12px;
+  font-family: var(--font-playfair), "Playfair Display", Georgia, serif;
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.tplBodyList {
+  margin: 0;
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  list-style: disc;
+}
+.tplBodyList li {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* caption under each slide ------------------------------- */
+.tplCaption {
+  font-size: 11px;
+  color: var(--quiet);
+  letter-spacing: 0.16em;
+  text-align: center;
+}
+
+/* aside: specs + rules ----------------------------------- */
+.tplAside {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.tplRules {
+  margin: 0;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: disc;
+}
+.tplRules li {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
