@@ -28,11 +28,13 @@ type Project = {
   image: string
 }
 
-// Desktop bento layout (md+):
-//   Row 0 (cols 1-3 | 4-6, both 2 rows tall):   LemonLime | Ask Stella
-//   Row 1 (left 1/3 stacked, right 2/3 tall):   AutoML (top), SCS (tall), Hidden Studios (bottom)
-//   Row 2 (three 1/3 shorts):                   S1R | Wigner | Timestamping
-// Mobile is unchanged: 1-col stack in array order.
+// Desktop bento layout (md+), 6-col grid, 240px row units. Three 4×2 feature
+// cards zig-zag down the page, each flanked by two stacked shorts:
+//   Row 0 (rows 1-2): LemonLime 4×2 (left) | Ask Stella, AutoML (right stack)
+//   Row 1 (rows 3-4): S1R, Hidden (left stack) | Personal Site Brand Kit 4×2 (right)
+//   Row 2 (rows 5-6): Stanford Christian Students 4×2 (left) | Wigner, Timestamping (right stack)
+// 9 cards → 36 grid-units → 6 rows, fully tiled. Array order is tuned for the
+// grid's sparse auto-flow (also the mobile 1-col order). Mobile: 1-col stack.
 const projects: (Project & BentoCfg)[] = [
   {
     title: "LemonLime AI Website",
@@ -43,7 +45,7 @@ const projects: (Project & BentoCfg)[] = [
     bentoRow: 0,
     spanClass: "md:col-span-4 md:row-span-2",
     anim: "projectsFadeTopLeft",
-    delay: 560,
+    delay: 0,
   },
   {
     title: "Ask Stella",
@@ -54,9 +56,9 @@ const projects: (Project & BentoCfg)[] = [
     githubUrl: "https://github.com/pauly00n/personal-website",
     image: "/stella1.png",
     bentoRow: 0,
-    spanClass: "md:col-span-2 md:row-span-2",
+    spanClass: "md:col-span-2 md:row-span-1",
     anim: "projectsFadeTopRight",
-    delay: 720,
+    delay: 140,
   },
   {
     title: "AutoML-Cardiac",
@@ -65,22 +67,34 @@ const projects: (Project & BentoCfg)[] = [
     tags: ["PyTorch", "Python", "Markdown"],
     githubUrl: "https://github.com/pauly00n/AutoML-Cardiac",
     image: "/automl-cardiac.png",
+    bentoRow: 0,
+    spanClass: "md:col-span-2 md:row-span-1",
+    anim: "projectsFadeTopRight",
+    delay: 240,
+  },
+  {
+    title: "S1R PET/MRI Knee Pain Research",
+    description:
+      "Analyzed PET/MRI scans of patients with chronic knee pain. Presented at SNMMI conference. Co-author of manuscript",
+    tags: ["Horos", "Excel", "Powerpoint"],
+    liveUrl: "https://jnm.snmjournals.org/content/62/supplement_1/143",
+    image: "/knee-pain.png",
     bentoRow: 1,
     spanClass: "md:col-span-2 md:row-span-1",
     anim: "projectsFadeLeft",
-    delay: 400,
+    delay: 0,
   },
   {
-    title: "Stanford Christian Students App",
+    title: "Personal Site Brand Kit",
     description:
-      "Full stack web & mobile app delivering daily scripture reading(s) for Stanford students",
-    tags: ["React Native", "TypeScript", "AWS"],
-    liveUrl: "https://apps.apple.com/us/app/stanford-christian-students/id1606989492",
-    image: "/scsapp.png",
+      "A complete brand system for this site: logo construction, type scale, color, motion, the glass material, and a slide template, set down as a living guidelines deck.",
+    tags: ["Design", "Typography", "Next.js"],
+    liveUrl: "/branding",
+    image: "/branding2.png",
     bentoRow: 1,
     spanClass: "md:col-span-4 md:row-span-2",
     anim: "projectsFadeRight",
-    delay: 400,
+    delay: 140,
   },
   {
     title: "Hidden Studios AdTech Platform",
@@ -91,19 +105,19 @@ const projects: (Project & BentoCfg)[] = [
     bentoRow: 1,
     spanClass: "md:col-span-2 md:row-span-1",
     anim: "projectsFadeLeft",
-    delay: 700,
+    delay: 240,
   },
   {
-    title: "S1R PET/MRI Knee Pain Research",
+    title: "Stanford Christian Students App",
     description:
-      "Analyzed PET/MRI scans of patients with chronic knee pain. Presented at SNMMI conference. Co-author of manuscript",
-    tags: ["Horos", "Excel", "Powerpoint"],
-    liveUrl: "https://jnm.snmjournals.org/content/62/supplement_1/143",
-    image: "/knee-pain.png",
+      "Full stack web & mobile app delivering daily scripture reading(s) for Stanford students",
+    tags: ["React Native", "TypeScript", "AWS"],
+    liveUrl: "https://apps.apple.com/us/app/stanford-christian-students/id1606989492",
+    image: "/scsapp.png",
     bentoRow: 2,
-    spanClass: "md:col-span-2 md:row-span-1",
+    spanClass: "md:col-span-4 md:row-span-2",
     anim: "projectsFadeLeft",
-    delay: 160,
+    delay: 0,
   },
   {
     title: "Formalizing Wigner's Semicircle Law",
@@ -115,8 +129,8 @@ const projects: (Project & BentoCfg)[] = [
     image: "/formalizing.png",
     bentoRow: 2,
     spanClass: "md:col-span-2 md:row-span-1",
-    anim: "projectsFadeIn",
-    delay: 320,
+    anim: "projectsFadeRight",
+    delay: 140,
   },
   {
     title: "Timestamping Video Game Eliminations",
@@ -128,7 +142,7 @@ const projects: (Project & BentoCfg)[] = [
     bentoRow: 2,
     spanClass: "md:col-span-2 md:row-span-1",
     anim: "projectsFadeRight",
-    delay: 480,
+    delay: 240,
   },
 ]
 
