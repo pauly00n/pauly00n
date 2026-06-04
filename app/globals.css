@@ -86,6 +86,10 @@
   html {
     scroll-behavior: smooth;
     background-color: #e0f1f9;
+    /* never let iOS/Android inflate text per the OS text-size / autosizing
+       setting — the layouts are px/clamp-tuned and the boost breaks them */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   body {
     @apply text-foreground;
