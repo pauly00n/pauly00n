@@ -3,7 +3,11 @@
 import { useEffect, useState } from 'react'
 import type { BackdropSnapshot } from './use-backdrop-snapshot'
 
-const MANIFEST_URL = '/glasspill-snapshots/manifest.json'
+// Bump this whenever you regenerate snapshots (npm run snapshot). It busts the
+// browser's force-cache for both the manifest and the PNGs without any manual
+// cache clearing on device.
+const SNAPSHOT_VERSION = '3'
+const MANIFEST_URL = `/glasspill-snapshots/manifest.json?v=${SNAPSHOT_VERSION}`
 
 interface ManifestEntry {
   docWidth: number
@@ -65,7 +69,7 @@ export function usePrebuiltSnapshot(): BackdropSnapshot | null {
         await new Promise<void>((res, rej) => {
           img.onload = () => res()
           img.onerror = () => rej(new Error('png load failed'))
-          img.src = entry.file
+          img.src = `${entry.file}?v=${SNAPSHOT_VERSION}`
         })
       } catch (err) {
         pushDebug('error', { message: (err as Error).message })
