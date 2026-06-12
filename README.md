@@ -2,7 +2,7 @@
 
 studying computer science + mathematics & music @ stanford, '27 | currently sde intern @AWS | prev. researcher @stanfordaimi, swe intern @sundialso.
 
-full stack engineer and researcher.
+full stack engineer and researcher. on the side, i like to go bouldering and play the french horn
 
 [website](https://paulyoon.xyz) | [linkedin](https://www.linkedin.com/in/pauljinyoon/) | [email](mailto:pauljinyoon@gmail.com)
 
