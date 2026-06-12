@@ -1,56 +1,22 @@
-# paulyoon.xyz
+# paul yoon
 
-rehauled portfolio site
+studying computer science + mathematics & music @ stanford, '27 | currently sde intern @AWS | prev. researcher @stanfordaimi, swe intern @sundialso.
 
-## stack
+full stack engineer and researcher.
 
-- next.js 16: (app router) + react 19 + typescript
-- tailwind css v4
+[website](https://paulyoon.xyz) | [linkedin](https://www.linkedin.com/in/pauljinyoon/) | [email](mailto:pauljinyoon@gmail.com)
 
-## pages
+**Languages**  
+![python](https://img.shields.io/badge/-Python-ffffff?style=flat&logo=python&logoColor=black)
+![javaScript](https://img.shields.io/badge/-JavaScript-fdc038?style=flat&logo=javascript&logoColor=white)
+![typeScript](https://img.shields.io/badge/-TypeScript-3279c6?style=flat&logo=typescript&logoColor=white)
+![html](https://img.shields.io/badge/-HTML-f0652e?style=flat&logo=html5&logoColor=white)
+![css](https://img.shields.io/badge/-CSS-30a4e2?style=flat&logo=css&logoColor=white)
+![c++](https://img.shields.io/badge/-C++-00599C?style=flat&logo=cplusplus&logoColor=white)
+![c](https://img.shields.io/badge/-C-A8B9CC?style=flat&logo=c&logoColor=black)
 
-| route | description |
-|-------|-------------|
-| `/` | home w/ hero, projects, skills |
-| `/about` | bio + photo |
-| `/resume.pdf` | resume (static file) |
-
-## project structure
-
-```
-app/
-  layout.tsx          # root layout, fonts, json-ld schema
-  page.tsx            # home page
-  about/page.tsx      # about page
-  globals.css         # tailwind + css variables (oklch, blue hue 232)
-
-components/
-  hero.tsx            # hero section with animated social buttonrow
-  hero-background.tsx # fixed css gradient + noise + drifting bloom
-  projects.tsx        # 2-col image card grid with scroll-triggered animations
-  skills.tsx          # 3-col tech skill cards with scroll-triggered animations
-  nav.tsx             # floating glass pill nav (scroll-linked opacity)
-  buttonrow.tsx       # ping-pong animated social links
-  footer.tsx          # simple footer
-  conditional-layout.tsx  # nav wrapper (hidden on /stella/*)
-  scroll-reset.tsx    # prevents browser scroll restoration
-  ui/
-    glasspill-auto.tsx    # safari-aware glass pill (use this)
-    glasspill.tsx         # chrome/firefox displacement refraction
-    glasspill-safari.tsx  # css backdrop-filter fallback
-    glassbutton2.tsx      # light rounded glass elements with hover. used in skills and buttonrow
-    textlink.tsx          # inline link with animated underline
-    section-label.tsx     # small section heading label
-    section-top-glow.tsx  # decorative top glow on section boundaries
-
-lib/
-  utils.ts            # cn() helper (clsx + tailwind-merge)
-```
-
-## dev
-
-```bash
-npm install
-npm run dev    # localhost:3000
-npm run build  # production build
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=pauly00n&theme=github_dark" />
+  <source media="(prefers-color-scheme: light)" srcset="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=pauly00n&theme=default" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=pauly00n&theme=default" />
+</picture>
