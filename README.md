@@ -1,6 +1,6 @@
 # paul yoon
 
-studying computer science + mathematics & music @ stanford, '27 | currently sde intern @AWS | prev. researcher @stanfordaimi, swe intern @sundialso.
+studying computer science + mathematics & music **@ stanford**, '27 | currently sde intern **@ AWS** | prev. researcher **@ stanford aimi**, swe intern **@ sundial**.
 
 full stack engineer and researcher. on the side, i like to go bouldering and play the french horn
 
