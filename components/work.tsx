@@ -21,22 +21,21 @@ type Experience = {
 const experiences: Experience[] = [
   {
     startLabel: "Jun 2026",
-    endLabel: "Aug 2026",
+    endLabel: "Present",
     title: "Software Development Engineer Intern",
     company: "Amazon Web Services (AWS)",
     subtitle: "SageMaker HyperPod Team",
     url: "https://aws.amazon.com/sagemaker/hyperpod/",
     description:
-      "Joining the SageMaker HyperPod team for summer 2026: distributed training infrastructure for large-scale ML workloads.",
-    incoming: true,
+      "Agentic coding knowledge & GPU observability.",
   },
   {
     startLabel: "Jan 2026",
-    endLabel: "Present",
+    endLabel: "Jun 2026",
     title: "Researcher",
     company: "Stanford Ashley Lab",
     url: "https://ashleylab.stanford.edu",
-    description: "Developing a framework for agents to execute autonomous machine learning research on the UK Biobank's massive dataset.",
+    description: "Developed a framework for agents to execute autonomous machine learning research on the UK Biobank's massive dataset.",
   },
   {
     startLabel: "Sept 2025",
