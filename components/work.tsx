@@ -21,7 +21,7 @@ type Experience = {
 const experiences: Experience[] = [
   {
     startLabel: "Jun 2026",
-    endLabel: "Present",
+    endLabel: "Aug 2026",
     title: "Software Development Engineer Intern",
     company: "Amazon Web Services (AWS)",
     subtitle: "SageMaker HyperPod Team",
