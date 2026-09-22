@@ -29,7 +29,7 @@ export function Hero() {
           {/* Bio */}
         <div className="px-[5%]">
           <p style={fadeUp(520)} className="mx-auto mt-6 max-w-[600px] text-pretty text-[15px] sm:text-[17px] leading-relaxed text-foreground/70">
-            I&apos;m a third year undergraduate at <TextLink href="https://stanford.edu" className="text-[15px] sm:text-[17px]">Stanford University</TextLink> studying <span className="font-medium text-foreground">Computer Science and Music</span>. I strive to find meaning through my work, whether I&apos;m building projects, conducting research, or learning new things.
+            I&apos;m a fourth year undergraduate at <TextLink href="https://stanford.edu" className="text-[15px] sm:text-[17px]">Stanford University</TextLink> studying <span className="font-medium text-foreground">Computer Science and Music</span>. I strive to find meaning through my work, whether I&apos;m building projects, conducting research, or learning new things.
           </p>
         </div>
 
