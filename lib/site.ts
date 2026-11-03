@@ -42,6 +42,7 @@ export const contact: { label: string; handle: string; href: string }[] = [
   { label: 'linkedin', handle: 'pauljinyoon', href: 'https://linkedin.com/in/pauljinyoon' },
   { label: 'twitter', handle: '@asian1x', href: 'https://x.com/asian1x' },
   { label: 'resume', handle: 'pdf', href: '/resume.pdf' },
+  { label: 'old site', handle: 'paulyoon.xyz/old-site', href: '/old-site' },
 ]
 
 export const people = {

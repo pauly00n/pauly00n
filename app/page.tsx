@@ -65,7 +65,7 @@ export default function Page() {
           <ul className={s.links}>
             {contact.map(({ label, handle, href }) => (
               <li key={label}>
-                <a href={href} {...(href.startsWith('mailto:') ? {} : ext)}>{label}</a><span className={s.sec}>, {handle}</span>
+                <a href={href} {...(href.startsWith('http') || href.endsWith('.pdf') ? ext : {})}>{label}</a><span className={s.sec}>, {handle}</span>
               </li>
             ))}
           </ul>
