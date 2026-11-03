@@ -38,8 +38,8 @@
 .page p { margin: 0; }
 .sec { color: var(--sec); }
 
-.head p:first-child { font-weight: 460; }
-.head p + p { margin-top: 2px; }
+.head h1 { font-size: inherit; font-weight: 460; margin: 0; }
+.head p { margin-top: 2px; }
 
 .page section { margin-top: 40px; }
 .page h2 { font-size: inherit; font-weight: 400; color: var(--sec); margin: 0 0 6px; }

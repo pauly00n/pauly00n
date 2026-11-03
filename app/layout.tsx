@@ -1,10 +1,7 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Playfair_Display, STIX_Two_Text, Newsreader } from 'next/font/google'
+import { Newsreader } from 'next/font/google'
 import './globals.css'
 
-const _inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const _playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
-const _stix = STIX_Two_Text({ subsets: ["latin"], variable: "--font-stix", display: "swap" });
 const _newsreader = Newsreader({ subsets: ["latin"], weight: "variable", axes: ["opsz"], variable: "--font-newsreader", display: "swap" });
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://paulyoon.xyz').replace(/\/$/, '')
 const ogImageUrl = `${siteUrl}/og-home.png`
@@ -80,10 +77,18 @@ export default function RootLayout({
                             "@context": "https://schema.org",
                             "@type": "Person",
                             "name": "Paul Yoon",
+                            "jobTitle": "Software Engineer & Researcher",
+                            "worksFor": { "@type": "Organization", "name": "Numenor AI", "url": "https://numenor.ai/" },
                             "affiliation": {
                                 "@type": "CollegeOrUniversity",
                                 "name": "Stanford University"
                             },
+                            "address": { "@type": "PostalAddress", "addressLocality": "Menlo Park", "addressRegion": "CA" },
+                            "sameAs": [
+                                "https://github.com/pauly00n",
+                                "https://linkedin.com/in/pauljinyoon",
+                                "https://x.com/asian1x"
+                            ],
                             "url": "https://paulyoon.xyz"
                         }),
                     }}
@@ -102,7 +107,7 @@ export default function RootLayout({
                     }}
                 />
             </head>
-      <body className={`${_inter.variable} ${_playfair.variable} ${_stix.variable} ${_newsreader.variable} font-sans antialiased`} style={{ background: 'transparent' }}>
+      <body className={`${_newsreader.variable} font-sans antialiased`} style={{ background: 'transparent' }}>
         {children}
       </body>
     </html>

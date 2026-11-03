@@ -30,7 +30,7 @@ export default function Page() {
     <div className={s.page}>
       <main className={s.col}>
         <header className={s.head}>
-          <p>{site.name}</p>
+          <h1>{site.name}</h1>
           <p className={s.sec}>{site.role}, {site.place}</p>
         </header>
 
