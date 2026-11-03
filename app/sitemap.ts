@@ -10,10 +10,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: 'https://paulyoon.xyz/about',
+      url: 'https://paulyoon.xyz/old-site',
       lastModified: date,
-      changeFrequency: 'monthly',
-      priority: 0.8,
+      changeFrequency: 'yearly',
+      priority: 0.5,
     },
   ]
 }

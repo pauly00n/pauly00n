@@ -52,7 +52,7 @@ async function main() {
       'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'
     )
 
-    await page.goto(`${BASE_URL}/?snapshot=1`, {
+    await page.goto(`${BASE_URL}/old-site?snapshot=1`, {
       waitUntil: 'domcontentloaded',
       timeout: 60000,
     })

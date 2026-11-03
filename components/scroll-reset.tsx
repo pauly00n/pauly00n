@@ -7,7 +7,7 @@ export function ScrollReset() {
     if (typeof window !== "undefined") {
       window.history.scrollRestoration = "manual"
       if (window.location.hash) {
-        window.history.replaceState(null, "", "/")
+        window.history.replaceState(null, "", window.location.pathname)
       }
       window.scrollTo({ top: 0, behavior: "instant" })
     }

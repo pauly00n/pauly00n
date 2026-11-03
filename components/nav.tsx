@@ -8,8 +8,8 @@ import styles from "./nav.module.css"
 type NavLink = { label: string; href: string; sectionId?: string }
 
 const navLinks: NavLink[] = [
-  { label: "Work", href: "#work", sectionId: "work" },
-  { label: "Projects", href: "#projects", sectionId: "projects" },
+  { label: "Work", href: "/old-site#work", sectionId: "work" },
+  { label: "Projects", href: "/old-site#projects", sectionId: "projects" },
   { label: "Resume", href: "/resume.pdf" },
 ]
 
@@ -66,7 +66,7 @@ export function Nav() {
           className="flex items-center gap-6 px-6 py-3"
           tintOpacity={overProjects ? 40 : 20}
         >
-          <a href="#" aria-label="Home" className="flex items-center">
+          <a href="/old-site" aria-label="Old site home" className="flex items-center">
             <svg
               width={20}
               height={20}

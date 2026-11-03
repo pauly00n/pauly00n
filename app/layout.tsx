@@ -1,8 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Playfair_Display, STIX_Two_Text } from 'next/font/google'
 import './globals.css'
-import { Nav } from '@/components/nav';
-import { HeroBackground } from '@/components/hero-background';
 
 const _inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const _playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
@@ -12,7 +10,7 @@ const ogImageUrl = `${siteUrl}/og-image2.png`
 const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c')
 
 export const viewport: Viewport = {
-  themeColor: '#e0f1f9',
+  themeColor: '#fcfbf7',
 }
 
 export const metadata: Metadata = {
@@ -58,7 +56,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" style={{ backgroundColor: "#e0f1f9" }}>
+    <html lang="en" style={{ backgroundColor: "#fcfbf7" }}>
 
         <head>
                 <script
@@ -91,11 +89,7 @@ export default function RootLayout({
                     }}
                 />
             </head>
-      <body className={`${_inter.variable} ${_playfair.variable} ${_stix.variable} font-sans antialiased`} style={{ background: 'transparent' }}>
-        <div style={{ position: 'fixed', top: '-300px', bottom: '-300px', left: 0, right: 0, zIndex: -10, willChange: 'auto' }}>
-          <HeroBackground />
-        </div>
-        <Nav />
+      <body className={`${_inter.variable} ${_playfair.variable} ${_stix.variable} antialiased`} style={{ background: 'transparent' }}>
         {children}
       </body>
     </html>
