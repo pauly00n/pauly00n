@@ -22,6 +22,15 @@
 }
 :global(html[data-theme="dark"]) .word { filter: invert(1); }
 @media (prefers-color-scheme: dark) { :global(html:not([data-theme="light"])) .word { filter: invert(1); } }
+/* on dark the scribble runs the other way: full at rest, dims on hover. and the navy aws square gets the same hairline as the white ones. */
+:global(html[data-theme="dark"]) .scrib { opacity: 1; }
+:global(html[data-theme="dark"]) .mark:hover .scrib, :global(html[data-theme="dark"]) .mark:focus-visible .scrib { opacity: .7; }
+:global(html[data-theme="dark"]) .aws { box-shadow: 0 0 0 0.5px var(--ul); }
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .scrib { opacity: 1; }
+  :global(html:not([data-theme="light"])) .mark:hover .scrib, :global(html:not([data-theme="light"])) .mark:focus-visible .scrib { opacity: .7; }
+  :global(html:not([data-theme="light"])) .aws { box-shadow: 0 0 0 0.5px var(--ul); }
+}
 
 /* the switch: one grey word, last thing in the column, set like the section labels */
 .theme { margin-top: 40px; text-align: right; }

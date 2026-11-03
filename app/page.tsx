@@ -8,7 +8,7 @@ const ext = { target: '_blank', rel: 'noopener' } as const
 function OrgLink({ org }: { org: Org }) {
   return (
     <a className={s.org} href={org.url} {...ext}>
-      <Image className={`${s.ico} ${org.boxed ? s.boxed : ''}`} src={org.icon} alt="" width={16} height={16} />
+      <Image className={`${s.ico} ${org.boxed ? s.boxed : ''} ${org === orgs.aws ? s.aws : ''}`} src={org.icon} alt="" width={16} height={16} />
       <span>{org.name}</span>
     </a>
   )
