@@ -19,6 +19,7 @@ function Numenor() {
     <a className={s.mark} href={orgs.numenor.url} aria-label={orgs.numenor.name} {...ext}>
       <span className={s.nm}>
         <Image className={s.word} src="/icons/numenor-word.png" alt={orgs.numenor.name} width={301} height={96} />
+        <Image className={s.pale} src="/icons/numenor-scribble-pale.png" alt="" width={301} height={96} />
         <Image className={s.scrib} src="/icons/numenor-scribble.png" alt="" width={301} height={96} />
       </span>
     </a>
