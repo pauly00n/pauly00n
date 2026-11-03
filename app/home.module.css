@@ -22,17 +22,18 @@
 }
 :global(html[data-theme="dark"]) .word { filter: invert(1); }
 @media (prefers-color-scheme: dark) { :global(html:not([data-theme="light"])) .word { filter: invert(1); } }
-/* on dark, fading the red toward the page would muddy it, so the resting scribble is a pre-mixed "0.7 over white" copy
-   and the pure red one fades in over it on hover. the navy aws square gets the same hairline as the white ones. */
+/* on dark the scribble rests pure red and goes to a pre-mixed "0.7 over white" copy on hover (fading toward the dark
+   page would muddy it, so the pale version is baked into its own png and fades in over the red). the navy aws square
+   gets the same hairline as the white ones. */
 .pale { display: none; }
-:global(html[data-theme="dark"]) .pale { display: block; opacity: 1; }
-:global(html[data-theme="dark"]) .scrib { opacity: 0; }
-:global(html[data-theme="dark"]) .mark:hover .scrib, :global(html[data-theme="dark"]) .mark:focus-visible .scrib { opacity: 1; }
+:global(html[data-theme="dark"]) .scrib { opacity: 1; }
+:global(html[data-theme="dark"]) .pale { display: block; opacity: 0; transition: opacity .22s ease-out; }
+:global(html[data-theme="dark"]) .mark:hover .pale, :global(html[data-theme="dark"]) .mark:focus-visible .pale { opacity: 1; }
 :global(html[data-theme="dark"]) .aws { box-shadow: 0 0 0 0.5px var(--ul); }
 @media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme="light"])) .pale { display: block; opacity: 1; }
-  :global(html:not([data-theme="light"])) .scrib { opacity: 0; }
-  :global(html:not([data-theme="light"])) .mark:hover .scrib, :global(html:not([data-theme="light"])) .mark:focus-visible .scrib { opacity: 1; }
+  :global(html:not([data-theme="light"])) .scrib { opacity: 1; }
+  :global(html:not([data-theme="light"])) .pale { display: block; opacity: 0; transition: opacity .22s ease-out; }
+  :global(html:not([data-theme="light"])) .mark:hover .pale, :global(html:not([data-theme="light"])) .mark:focus-visible .pale { opacity: 1; }
   :global(html:not([data-theme="light"])) .aws { box-shadow: 0 0 0 0.5px var(--ul); }
 }
 
