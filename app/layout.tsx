@@ -1,10 +1,11 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Playfair_Display, STIX_Two_Text } from 'next/font/google'
+import { Inter, Playfair_Display, STIX_Two_Text, Newsreader } from 'next/font/google'
 import './globals.css'
 
 const _inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const _playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
 const _stix = STIX_Two_Text({ subsets: ["latin"], variable: "--font-stix", display: "swap" });
+const _newsreader = Newsreader({ subsets: ["latin"], weight: "variable", axes: ["opsz"], variable: "--font-newsreader", display: "swap" });
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://paulyoon.xyz').replace(/\/$/, '')
 const ogImageUrl = `${siteUrl}/og-image2.png`
 const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c')
@@ -16,13 +17,13 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: 'Paul Yoon',
-  description: 'Stanford University Undergraduate studying Computer Science and Music',
+  description: 'Fourth year at Stanford studying Computer Science, Mathematics, and Music. Engineer at Numenor AI.',
   alternates: {
     canonical: siteUrl,
   },
   openGraph: {
     title: 'Paul Yoon',
-    description: 'Stanford University Undergraduate studying Computer Science and Music',
+    description: 'Fourth year at Stanford studying Computer Science, Mathematics, and Music. Engineer at Numenor AI.',
     url: siteUrl,
     siteName: 'Paul Yoon',
     images: [
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Paul Yoon',
-    description: 'Stanford University Undergraduate studying Computer Science and Music',
+    description: 'Fourth year at Stanford studying Computer Science, Mathematics, and Music. Engineer at Numenor AI.',
     images: [ogImageUrl],
   },
   icons: {
@@ -89,7 +90,7 @@ export default function RootLayout({
                     }}
                 />
             </head>
-      <body className={`${_inter.variable} ${_playfair.variable} ${_stix.variable} antialiased`} style={{ background: 'transparent' }}>
+      <body className={`${_inter.variable} ${_playfair.variable} ${_stix.variable} ${_newsreader.variable} antialiased`} style={{ background: 'transparent' }}>
         {children}
       </body>
     </html>

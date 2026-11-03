@@ -13,7 +13,7 @@ export const viewport: Viewport = {
 export default function OldSiteLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="font-sans" style={{ minHeight: '100svh', backgroundColor: '#e0f1f9' }}>
-      <style>{`html{background:#e0f1f9}`}</style>
+      <style>{`html{background:#e0f1f9 !important}`}</style>
       <div style={{ position: 'fixed', top: '-300px', bottom: '-300px', left: 0, right: 0, zIndex: -10, willChange: 'auto' }}>
         <HeroBackground />
       </div>
