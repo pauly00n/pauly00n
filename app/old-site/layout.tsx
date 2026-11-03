@@ -1,4 +1,4 @@
-import type { Viewport } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Nav } from '@/components/nav'
 import { HeroBackground } from '@/components/hero-background'
 
@@ -8,6 +8,12 @@ import { HeroBackground } from '@/components/hero-background'
 
 export const viewport: Viewport = {
   themeColor: '#e0f1f9',
+}
+
+// the old site keeps its old link preview
+export const metadata: Metadata = {
+  openGraph: { images: [{ url: '/og-image2.png', width: 1200, height: 630, alt: 'Paul Yoon' }] },
+  twitter: { images: ['/og-image2.png'] },
 }
 
 export default function OldSiteLayout({ children }: Readonly<{ children: React.ReactNode }>) {

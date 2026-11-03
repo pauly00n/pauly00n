@@ -7,7 +7,7 @@ const _playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playf
 const _stix = STIX_Two_Text({ subsets: ["latin"], variable: "--font-stix", display: "swap" });
 const _newsreader = Newsreader({ subsets: ["latin"], weight: "variable", axes: ["opsz"], variable: "--font-newsreader", display: "swap" });
 const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://paulyoon.xyz').replace(/\/$/, '')
-const ogImageUrl = `${siteUrl}/og-image2.png`
+const ogImageUrl = `${siteUrl}/og-home.png`
 const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c')
 
 export const viewport: Viewport = {
@@ -46,9 +46,11 @@ export const metadata: Metadata = {
     images: [ogImageUrl],
   },
   icons: {
+    // the svg swaps ink for white on its own via prefers-color-scheme; the pngs are the same pair for browsers that skip svg
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icon-light.png', type: 'image/png', sizes: '180x180', media: '(prefers-color-scheme: light)' },
+      { url: '/icon-dark.png', type: 'image/png', sizes: '180x180', media: '(prefers-color-scheme: dark)' },
     ],
     apple: '/apple-touch-icon.png',
   },
