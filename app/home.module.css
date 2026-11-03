@@ -15,6 +15,20 @@
 }
 @media (max-width: 640px) { .page { padding: 72px 16px 120px; font-size: 14.5px; } }
 
+/* dark: the same four tokens, nothing else changes. follows the system unless the toggle at the bottom says otherwise. */
+:global(html[data-theme="dark"]) .page { --bg: #151413; --ink: #e8e4da; --sec: #8f8a7e; --ul: #4a463f; }
+@media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .page { --bg: #151413; --ink: #e8e4da; --sec: #8f8a7e; --ul: #4a463f; }
+}
+:global(html[data-theme="dark"]) .word { filter: invert(1); }
+@media (prefers-color-scheme: dark) { :global(html:not([data-theme="light"])) .word { filter: invert(1); } }
+
+/* the switch: one grey word, last thing in the column, set like the section labels */
+.theme { margin-top: 40px; text-align: right; }
+.theme button { font: inherit; color: var(--sec); background: none; border: 0; padding: 0; cursor: pointer; }
+.theme button:hover { color: var(--ink); }
+.theme button:focus-visible { outline: 1.5px solid var(--ink); outline-offset: 2px; border-radius: 1px; }
+
 .col { width: 480px; max-width: 100%; margin: 0 auto; flex: none; }
 
 .page a { color: inherit; text-decoration: underline; text-decoration-color: var(--ul); text-decoration-thickness: 1px; text-underline-offset: 2.5px; }
@@ -44,6 +58,7 @@
 .mark { text-decoration: none !important; white-space: nowrap; }
 .nm { position: relative; display: inline-block; height: 1.2em; aspect-ratio: 301 / 96; vertical-align: -0.52em; margin-left: 0.1em; }
 .nm img { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
+.word { transition: filter .2s; }
 .scrib { transition: transform .22s ease-out; transform-origin: 50% 70%; }
 .mark:hover .scrib, .mark:focus-visible .scrib { transform: scale(1.04); }
 @media (prefers-reduced-motion: reduce) { .scrib { transition: none; } }

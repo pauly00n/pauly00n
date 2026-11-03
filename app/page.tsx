@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import s from './home.module.css'
 import { site, orgs, previously, contact, people, type Org } from '@/lib/site'
+import { ThemeToggle } from '@/components/theme-toggle'
 
 const ext = { target: '_blank', rel: 'noopener' } as const
 
@@ -17,7 +18,7 @@ function Numenor() {
   return (
     <a className={s.mark} href={orgs.numenor.url} aria-label={orgs.numenor.name} {...ext}>
       <span className={s.nm}>
-        <Image src="/icons/numenor-word.png" alt={orgs.numenor.name} width={301} height={96} />
+        <Image className={s.word} src="/icons/numenor-word.png" alt={orgs.numenor.name} width={301} height={96} />
         <Image className={s.scrib} src="/icons/numenor-scribble.png" alt="" width={301} height={96} />
       </span>
     </a>
@@ -70,6 +71,8 @@ export default function Page() {
             ))}
           </ul>
         </section>
+
+        <p className={s.theme}><ThemeToggle /></p>
       </main>
     </div>
   )

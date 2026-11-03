@@ -79,13 +79,17 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* page colour for the home page; follows the system unless html[data-theme] says otherwise. /old-site sets its own. */
+html { background: #fcfbf7; }
+html[data-theme="dark"] { background: #151413; }
+@media (prefers-color-scheme: dark) { html:not([data-theme="light"]) { background: #151413; } }
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   html {
     scroll-behavior: smooth;
-    background-color: #e0f1f9;
     /* never let iOS/Android inflate text per the OS text-size / autosizing
        setting — the layouts are px/clamp-tuned and the boost breaks them */
     -webkit-text-size-adjust: 100%;

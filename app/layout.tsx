@@ -11,7 +11,10 @@ const ogImageUrl = `${siteUrl}/og-image2.png`
 const serializeJsonLd = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c')
 
 export const viewport: Viewport = {
-  themeColor: '#fcfbf7',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#fcfbf7' },
+    { media: '(prefers-color-scheme: dark)', color: '#151413' },
+  ],
 }
 
 export const metadata: Metadata = {
@@ -57,9 +60,16 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" style={{ backgroundColor: "#fcfbf7" }}>
+    <html lang="en" suppressHydrationWarning>
 
         <head>
+                {/* apply a remembered theme before first paint so dark readers never see a cream flash */}
+                <script
+                    id="theme-init"
+                    dangerouslySetInnerHTML={{
+                        __html: "(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}})()",
+                    }}
+                />
                 <script
                     id="schema-person"
                     type="application/ld+json"
@@ -90,7 +100,7 @@ export default function RootLayout({
                     }}
                 />
             </head>
-      <body className={`${_inter.variable} ${_playfair.variable} ${_stix.variable} ${_newsreader.variable} antialiased`} style={{ background: 'transparent' }}>
+      <body className={`${_inter.variable} ${_playfair.variable} ${_stix.variable} ${_newsreader.variable} font-sans antialiased`} style={{ background: 'transparent' }}>
         {children}
       </body>
     </html>
