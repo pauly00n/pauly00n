@@ -38,7 +38,7 @@
 .page p { margin: 0; }
 .sec { color: var(--sec); }
 
-.head h1 { font-size: inherit; font-weight: 460; margin: 0; }
+.head h1 { font-size: inherit; font-weight: 500; margin: 0; }
 .head p { margin-top: 2px; }
 
 .page section { margin-top: 40px; }
