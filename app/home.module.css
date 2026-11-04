@@ -23,11 +23,15 @@
 :global(html[data-theme="dark"]) .word { filter: invert(1); }
 @media (prefers-color-scheme: dark) { :global(html:not([data-theme="light"])) .word { filter: invert(1); } }
 /* dark: the reverse, and the navy aws square gets the same hairline as the white ones */
+:global(html[data-theme="dark"]) .scrib { opacity: 1; }
 :global(html[data-theme="dark"]) .pale { opacity: 0; }
+:global(html[data-theme="dark"]) .mark:hover .scrib, :global(html[data-theme="dark"]) .mark:focus-visible .scrib { opacity: 0; }
 :global(html[data-theme="dark"]) .mark:hover .pale, :global(html[data-theme="dark"]) .mark:focus-visible .pale { opacity: 1; }
 :global(html[data-theme="dark"]) .aws { box-shadow: 0 0 0 0.5px var(--ul); }
 @media (prefers-color-scheme: dark) {
+  :global(html:not([data-theme="light"])) .scrib { opacity: 1; }
   :global(html:not([data-theme="light"])) .pale { opacity: 0; }
+  :global(html:not([data-theme="light"])) .mark:hover .scrib, :global(html:not([data-theme="light"])) .mark:focus-visible .scrib { opacity: 0; }
   :global(html:not([data-theme="light"])) .mark:hover .pale, :global(html:not([data-theme="light"])) .mark:focus-visible .pale { opacity: 1; }
   :global(html:not([data-theme="light"])) .aws { box-shadow: 0 0 0 0.5px var(--ul); }
 }
@@ -69,8 +73,11 @@
 .nm img { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
 .word { transition: filter .2s; }
 /* two copies of the scribble with identical alpha: pure red, and a pale one pre-mixed 30 percent toward white.
-   crossfading between them changes only the colour, never the stroke, so the mark reads the same size at rest and on hover.
+   exactly one is visible at rest and exactly one on hover (both stacked would double the edge coverage and look red and heavy), so only the colour changes, never the stroke.
    light rests pale and goes red on hover; dark rests red and goes pale. */
-.pale { opacity: 1; transition: opacity .22s ease-out; }
+.scrib, .pale { transition: opacity .22s ease-out; }
+.scrib { opacity: 0; }
+.pale { opacity: 1; }
+.mark:hover .scrib, .mark:focus-visible .scrib { opacity: 1; }
 .mark:hover .pale, .mark:focus-visible .pale { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .scrib { transition: none; } }
