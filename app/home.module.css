@@ -22,17 +22,12 @@
 }
 :global(html[data-theme="dark"]) .word { filter: invert(1); }
 @media (prefers-color-scheme: dark) { :global(html:not([data-theme="light"])) .word { filter: invert(1); } }
-/* on dark the scribble rests pure red and goes to a pre-mixed "0.7 over white" copy on hover (fading toward the dark
-   page would muddy it, so the pale version is baked into its own png and fades in over the red). the navy aws square
-   gets the same hairline as the white ones. */
-.pale { display: none; }
-:global(html[data-theme="dark"]) .scrib { opacity: 1; }
-:global(html[data-theme="dark"]) .pale { display: block; opacity: 0; transition: opacity .22s ease-out; }
+/* dark: the reverse, and the navy aws square gets the same hairline as the white ones */
+:global(html[data-theme="dark"]) .pale { opacity: 0; }
 :global(html[data-theme="dark"]) .mark:hover .pale, :global(html[data-theme="dark"]) .mark:focus-visible .pale { opacity: 1; }
 :global(html[data-theme="dark"]) .aws { box-shadow: 0 0 0 0.5px var(--ul); }
 @media (prefers-color-scheme: dark) {
-  :global(html:not([data-theme="light"])) .scrib { opacity: 1; }
-  :global(html:not([data-theme="light"])) .pale { display: block; opacity: 0; transition: opacity .22s ease-out; }
+  :global(html:not([data-theme="light"])) .pale { opacity: 0; }
   :global(html:not([data-theme="light"])) .mark:hover .pale, :global(html:not([data-theme="light"])) .mark:focus-visible .pale { opacity: 1; }
   :global(html:not([data-theme="light"])) .aws { box-shadow: 0 0 0 0.5px var(--ul); }
 }
@@ -73,6 +68,9 @@
 .nm { position: relative; display: inline-block; height: 1.2em; aspect-ratio: 301 / 96; vertical-align: -0.52em; margin-left: 0.1em; }
 .nm img { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
 .word { transition: filter .2s; }
-.scrib { opacity: .7; transition: opacity .22s ease-out; }
-.mark:hover .scrib, .mark:focus-visible .scrib { opacity: 1; }
+/* two copies of the scribble with identical alpha: pure red, and a pale one pre-mixed 30 percent toward white.
+   crossfading between them changes only the colour, never the stroke, so the mark reads the same size at rest and on hover.
+   light rests pale and goes red on hover; dark rests red and goes pale. */
+.pale { opacity: 1; transition: opacity .22s ease-out; }
+.mark:hover .pale, .mark:focus-visible .pale { opacity: 0; }
 @media (prefers-reduced-motion: reduce) { .scrib { transition: none; } }
